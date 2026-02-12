@@ -1,416 +1,707 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PronoFoot+ | Official Website</title>
 
-  <!-- Keep this for Google Search Console verification -->
+  <!-- ✅ IMPORTANT: garder la vérification -->
   <meta name="google-site-verification" content="7cEFltr7OFNyrphsOdiHcveijQlPrvOThkUcuyXSbeg" />
 
-  <meta name="description" content="PronoFoot+ delivers curated football insights and data-driven match analysis in a premium, modern experience." />
-  <meta name="theme-color" content="#071712" />
+  <title>PronoFoot+ — Official Developer Website</title>
+  <meta name="description" content="PronoFoot+ — Data-driven football picks, expert selections, smart bet planning, and advanced match insights." />
 
   <style>
     :root{
-      --bg0:#030f0b;
-      --bg1:#071f17;
+      --bg0:#06110f;
+      --bg1:#051a16;
+      --text:#eafffb;
+      --muted:rgba(234,255,251,.72);
+      --line:rgba(255,255,255,.10);
       --card:rgba(255,255,255,.06);
-      --stroke:rgba(255,255,255,.10);
-      --text:#e9f7f1;
-      --muted:rgba(233,247,241,.72);
-      --muted2:rgba(233,247,241,.55);
-      --accent:#21f3a3;
-      --accent2:#18c98a;
-      --shadow: 0 24px 80px rgba(0,0,0,.50);
-      --r:18px;
+      --card2:rgba(255,255,255,.10);
+      --accent:#25e6b1;
+      --accent2:#19c9ff;
+      --shadow: 0 26px 90px rgba(0,0,0,.58);
+      --shadow2: 0 16px 44px rgba(0,0,0,.35);
+      --r:22px;
     }
 
     *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    html,body{ height:100%; }
     body{
       margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background:
-        radial-gradient(900px 520px at 12% 12%, rgba(33,243,163,.20), transparent 55%),
-        radial-gradient(700px 420px at 85% 18%, rgba(33,243,163,.10), transparent 60%),
-        radial-gradient(900px 520px at 50% 100%, rgba(0,255,170,.08), transparent 60%),
-        linear-gradient(135deg, var(--bg1), var(--bg0));
+        radial-gradient(1000px 650px at 20% 10%, rgba(37,230,177,.22), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(25,201,255,.16), transparent 55%),
+        radial-gradient(1000px 700px at 55% 90%, rgba(37,230,177,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
-
     a{ color:inherit; text-decoration:none; }
-    .wrap{ width:min(1120px, 100%); margin:0 auto; padding:22px 16px 60px; }
+    .container{ width:min(1120px, 92vw); margin:0 auto; }
 
-    /* Top nav */
+    /* Background grid + noise */
+    .grid-bg{
+      position:fixed; inset:-40px;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity:.08;
+      pointer-events:none;
+      mask-image: radial-gradient(circle at 50% 10%, rgba(0,0,0,1), rgba(0,0,0,.25) 55%, rgba(0,0,0,0) 75%);
+    }
+    .noise{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    /* Sticky header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(16px);
+      background: rgba(6,17,15,.58);
+      border-bottom: 1px solid var(--line);
+    }
     .nav{
-      position:sticky; top:14px; z-index:50;
-      display:flex; justify-content:space-between; align-items:center;
-      padding:12px 14px;
-      border:1px solid var(--stroke);
-      border-radius:999px;
-      background:rgba(0,0,0,.18);
-      backdrop-filter: blur(12px);
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap:12px;
     }
-    .brand{ display:flex; align-items:center; gap:10px; padding-left:6px; }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
     .dot{
-      width:14px;height:14px;border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, #baffea, var(--accent));
-      box-shadow: 0 0 0 7px rgba(33,243,163,.10);
+      width:12px; height:12px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
+      box-shadow: 0 0 22px rgba(37,230,177,.55);
     }
-    .brand b{ font-weight:900; letter-spacing:.2px; }
-    .brand b span{ color:var(--accent); }
-    .navlinks{ display:flex; gap:12px; align-items:center; }
-    .navlinks a{
+    .navlinks{
+      display:flex; gap:10px; align-items:center;
       color:var(--muted);
-      font-weight:800;
-      font-size:13px;
+      font-weight:700;
+      font-size:14px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .navlinks a{
       padding:8px 10px;
       border-radius:10px;
-      transition:.15s;
     }
-    .navlinks a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+    .navlinks a:hover{
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+    }
+    .btn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding:10px 14px;
+      border-radius: 12px;
+      font-weight:900;
+      font-size:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.20);
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+    .btn.primary{
+      border: 1px solid rgba(37,230,177,.35);
+      background: linear-gradient(135deg, rgba(37,230,177,.18), rgba(25,201,255,.14));
+      box-shadow: 0 18px 40px rgba(37,230,177,.18);
+    }
 
     /* Hero */
-    .hero{
-      margin-top:18px;
-      border-radius: calc(var(--r) + 6px);
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+    .hero{ padding: 70px 0 30px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items:center;
+    }
+    @media (max-width: 980px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight:800;
+      font-size:13px;
+      width: fit-content;
+    }
+    .spark{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent2);
+      box-shadow: 0 0 22px rgba(25,201,255,.55);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+    .grad{
+      background: linear-gradient(90deg, #fff, rgba(255,255,255,.92), var(--accent));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .sub{
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 62ch;
+    }
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 540px){ .kpis{ grid-template-columns: 1fr; } }
+    .kpi{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: var(--shadow2);
+    }
+    .kpi .t{ font-weight:900; font-size: 15px; display:flex; gap:8px; align-items:center; }
+    .kpi .d{ color: var(--muted); font-size: 13px; margin-top: 6px; line-height:1.55; }
+
+    /* 3D phone */
+    .stage{ perspective: 1200px; display:flex; justify-content:center; align-items:center; padding: 20px 0; }
+    .phoneWrap{ width:min(420px, 92vw); position:relative; transform-style: preserve-3d; }
+    .glowRing{
+      position:absolute; inset:-30px;
+      border-radius: 40px;
+      background:
+        radial-gradient(420px 240px at 50% 35%, rgba(37,230,177,.18), transparent 60%),
+        radial-gradient(340px 240px at 65% 70%, rgba(25,201,255,.14), transparent 60%);
+      filter: blur(6px);
+      z-index:0;
+    }
+    .phone{
+      position:relative;
+      z-index:2;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      transform: rotateX(6deg) rotateY(-10deg);
+      transition: transform .18s ease;
+    }
+    .phone img{ width:100%; display:block; }
+    .shine{
+      position:absolute;
+      inset:-30%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.10) 50%, transparent 65%);
+      transform: translateX(-30%) rotate(10deg);
+      animation: shine 5.5s ease-in-out infinite;
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+    @keyframes shine{
+      0%{ transform: translateX(-50%) rotate(10deg); opacity:0; }
+      30%{ opacity:.7; }
+      55%{ opacity:0; }
+      100%{ transform: translateX(50%) rotate(10deg); opacity:0; }
+    }
+
+    section{ padding: 56px 0; }
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin-bottom: 18px;
+      flex-wrap:wrap;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: clamp(22px, 3.2vw, 34px);
+      letter-spacing: -.4px;
+    }
+    .sectionTitle p{
+      margin:0;
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    @media (max-width: 980px){ .cards{ grid-template-columns: 1fr; } }
+
+    .card{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      border-radius: var(--r);
+      padding: 16px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform .65s cubic-bezier(.2,.8,.2,1), opacity .65s ease;
+    }
+    .card.reveal{ transform: translateY(0); opacity: 1; }
+    .card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(320px 140px at 20% 0%, rgba(37,230,177,.18), transparent 60%);
+      opacity:.6;
+      pointer-events:none;
+    }
+    .icon{
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .card h3{ margin: 0 0 6px; font-size: 16px; }
+    .card p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    /* Gallery grid + lightbox */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+    }
+    @media (max-width: 980px){ .gallery{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 520px){ .gallery{ grid-template-columns: 1fr; } }
+
+    .shot{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      transform: translateY(10px);
+      opacity:0;
+      transition: transform .65s cubic-bezier(.2,.8,.2,1), opacity .65s ease, border-color .2s ease;
+      position:relative;
+    }
+    .shot.reveal{ transform: translateY(0); opacity:1; }
+    .shot:hover{ border-color: rgba(37,230,177,.35); }
+    .shot img{ width:100%; height: 360px; object-fit: cover; display:block; }
+    @media (max-width: 980px){ .shot img{ height: 320px; } }
+    @media (max-width: 520px){ .shot img{ height: auto; } }
+
+    .cap{
+      position:absolute; left:10px; right:10px; bottom:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(6,18,16,.70);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      font-size: 12px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px;
+    }
+    .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin: 26px 0;
+    }
+
+    footer{
+      padding: 26px 0 44px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .fgrid{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .smallLinks{ display:flex; gap:12px; flex-wrap:wrap; }
+    .smallLinks a{
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .smallLinks a:hover{ background: rgba(255,255,255,.08); }
+
+    /* Lightbox */
+    .lb{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center; justify-content:center;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(10px);
+      z-index:999;
+      padding: 18px;
+    }
+    .lb.open{ display:flex; }
+    .lbCard{
+      width: min(920px, 95vw);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(9,22,19,.65);
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
     }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(520px 260px at 18% 10%, rgba(33,243,163,.28), transparent 60%),
-        radial-gradient(520px 260px at 85% 40%, rgba(33,243,163,.14), transparent 62%);
-      pointer-events:none;
+    .lbTop{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
     }
-    .heroInner{
-      position:relative; z-index:1;
-      padding: 34px 22px 22px;
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      align-items:center;
-    }
-    @media (max-width: 920px){
-      .heroInner{ grid-template-columns:1fr; padding: 26px 18px 18px; }
-    }
-
-    .kicker{
-      display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(33,243,163,.22);
-      background:rgba(33,243,163,.10);
-      color:#bfffe6;
-      font-size:13px;
-      font-weight:800;
-      white-space:nowrap;
-    }
-    h1{
-      margin:0;
-      font-size: clamp(34px, 4.7vw, 60px);
-      line-height:1.02;
-      letter-spacing:-0.8px;
-      font-weight:950;
-    }
-    .accent{ color:var(--accent); }
-    .sub{
-      margin-top:14px;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.7;
-      max-width: 64ch;
-    }
-    .cta{
-      margin-top:18px;
-      display:flex; gap:12px; flex-wrap:wrap;
-      align-items:center;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 16px;
-      border-radius:12px;
-      font-weight:900;
+    .lbTop b{ font-size: 13px; }
+    .lbClose{
       border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      color: var(--text);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 900;
+      cursor:pointer;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
-    .btnPrimary{
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color:#06110d;
-      border:none;
-      box-shadow: 0 14px 34px rgba(33,243,163,.20);
-    }
-
-    /* Screenshot stack */
-    .phoneStack{
-      position:relative;
-      min-height: 420px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    @media (max-width: 920px){
-      .phoneStack{ min-height: 380px; margin-top:8px; }
-    }
-    .shot{
-      width:min(260px, 70vw);
-      aspect-ratio: 9 / 19.5;
-      border-radius: 26px;
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 30px 80px rgba(0,0,0,.55);
-      background: rgba(0,0,0,.22);
-      overflow:hidden;
-      position:absolute;
-      transform-origin: center;
-      transition: transform .25s ease, opacity .25s ease;
-    }
-    .shot img{
-      width:100%; height:100%; object-fit:cover; display:block;
-      filter: saturate(1.05) contrast(1.03);
-    }
-    .shot:nth-child(1){ transform: translate(-62px, 20px) rotate(-8deg); opacity:.65; }
-    .shot:nth-child(2){ transform: translate(62px, 20px) rotate(8deg); opacity:.65; }
-    .shot:nth-child(3){
-      transform: translate(0, 0) rotate(0deg);
-      opacity:1;
-      border:1px solid rgba(33,243,163,.26);
-      box-shadow: 0 40px 110px rgba(0,0,0,.62);
+    .lbImg{
+      width:100%;
+      display:block;
+      max-height: 82vh;
+      object-fit: contain;
+      background: rgba(0,0,0,.25);
     }
 
-    /* Sections */
-    .section{
-      margin-top:16px;
-      border:1px solid var(--stroke);
-      border-radius: calc(var(--r) + 2px);
-      background: rgba(0,0,0,.16);
-      backdrop-filter: blur(10px);
-      padding: 18px;
-    }
-    .section h2{
-      margin:0 0 10px;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-
-    .features{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:10px;
-    }
-    @media (max-width: 860px){ .features{ grid-template-columns:1fr; } }
-
-    .feat{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      background: rgba(0,0,0,.18);
-      padding:14px;
-      position:relative;
-      overflow:hidden;
-    }
-    .feat::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(340px 180px at 20% 0%, rgba(33,243,163,.18), transparent 60%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .feat b{ display:block; font-size:14px; margin-bottom:6px; position:relative; z-index:1; }
-    .feat p{ margin:0; color:var(--muted2); font-size:13px; line-height:1.6; position:relative; z-index:1; }
-
-    .twoCol{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width: 860px){ .twoCol{ grid-template-columns:1fr; } }
-
-    /* Animated reveal */
-    .reveal{
-      opacity:0;
-      transform: translateY(14px);
-      transition: opacity .55s ease, transform .55s ease;
-    }
-    .reveal.on{
-      opacity:1;
-      transform: translateY(0);
-    }
-
-    footer{
-      margin-top:16px;
-      color: rgba(233,247,241,.55);
-      font-size: 12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      padding: 0 6px;
-    }
-
-    /* Floating glow */
-    .glow{
-      position:absolute;
-      right:-160px; top:-160px;
-      width:420px; height:420px;
-      background: radial-gradient(circle at 30% 30%, rgba(33,243,163,.35), transparent 60%);
-      filter: blur(2px);
-      opacity:.60;
-      animation: float 7s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes float{
-      0%,100%{ transform: translate(0,0) scale(1); }
-      50%{ transform: translate(-18px, 12px) scale(1.03); }
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .shine{ animation:none; }
+      .card, .shot{ transition:none; opacity:1; transform:none; }
+      .phone{ transition:none; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="nav">
-      <div class="brand">
-        <div class="dot"></div>
-        <b>PronoFoot<span>+</span></b>
-      </div>
-      <div class="navlinks">
-        <a href="#features">Features</a>
-        <a href="#screens">Screens</a>
-        <a href="#contact">Contact</a>
+  <div class="grid-bg"></div>
+  <div class="noise"></div>
+
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <span class="dot"></span><span>PronoFoot+</span>
+        </div>
+        <nav class="navlinks">
+          <a href="#features">Features</a>
+          <a href="#screens">Screens</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <a class="btn" href="/app-ads.txt" target="_blank" rel="noopener">app-ads.txt</a>
+          <a class="btn primary" href="#screens">Voir le produit</a>
+        </div>
       </div>
     </div>
+  </header>
 
-    <section class="hero reveal">
-      <div class="glow"></div>
-      <div class="heroInner">
-        <div>
-          <div class="kicker">
-            <span class="pill">Data-driven</span>
-            <span class="pill">Curated</span>
-            <span class="pill">Premium UX</span>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="badge"><span class="spark"></span> Official developer website</div>
+            <h1><span class="grad">PronoFoot+</span><br/>Data-driven football picks</h1>
+            <p class="sub">
+              Top curated matches, expert picks, smart bet planning and advanced match insights —
+              un style premium “app-like”, pensé pour convaincre (AdMob/Play) et impressionner.
+            </p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="#screens">Explorer les screenshots</a>
+              <a class="btn" href="#features">Découvrir les features</a>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi">
+                <div class="t">⚡ Expert Picks</div>
+                <div class="d">Sélections éditoriales avec confiance & contexte.</div>
+              </div>
+              <div class="kpi">
+                <div class="t">📊 Advanced Stats</div>
+                <div class="d">Insights & tendances pour guider la décision.</div>
+              </div>
+              <div class="kpi">
+                <div class="t">🧠 AI Assistant</div>
+                <div class="d">Aide à structurer les tickets et la stratégie.</div>
+              </div>
+            </div>
           </div>
 
-          <h1>Football insights,<br><span class="accent">built with precision</span>.</h1>
-          <p class="sub">
-            Structured match analysis, curated selections, and smart planning tools — designed to help you explore every fixture
-            with clarity and confidence, all in one place.
-          </p>
-
-          <div class="cta">
-            <a class="btn btnPrimary" target="_blank"
-               href="https://play.google.com/store/apps/details?id=com.pronofoot.plus">
-              Download on Google Play →
-            </a>
-            <a class="btn" target="_blank" href="/app-ads.txt">View app-ads.txt ↗</a>
+          <div class="stage">
+            <div class="phoneWrap" id="tilt">
+              <div class="glowRing"></div>
+              <div class="phone" id="phone">
+                <img src="assets/01.png" alt="PronoFoot+ screenshot" />
+                <div class="shine"></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Replace assets/s*.png with your real screenshots -->
-        <div class="phoneStack" id="screens" aria-label="App screenshots preview">
-          <div class="shot" title="Screenshot">
-            <img src="assets/01.png" alt="PronoFoot+ screenshot 1" />
+        <div class="divider"></div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="sectionTitle">
+          <div>
+            <h2>Une expérience <span class="grad">premium</span></h2>
+            <p>Landing page style “product” (comme les meilleurs templates), animations propres et lisibilité maximale.</p>
           </div>
-          <div class="shot" title="Screenshot">
-            <img src="assets/03.png" alt="PronoFoot+ screenshot 2" />
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icon">🏆</div>
+            <h3>Top Curated Matches</h3>
+            <p>Les matchs à plus forte valeur ajoutée, mis en avant pour aller à l’essentiel.</p>
           </div>
-          <div class="shot" title="Screenshot">
-            <img src="assets/05.png" alt="PronoFoot+ screenshot 3" />
+          <div class="card">
+            <div class="icon">🔥</div>
+            <h3>Picked By Experts</h3>
+            <p>Pronostics accompagnés d’arguments et d’un niveau de confiance.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🧾</div>
+            <h3>Smart Bet Planning</h3>
+            <p>Structure tes tickets, contrôle le risque et optimise la mise.</p>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icon">📈</div>
+            <h3>Advanced Insights</h3>
+            <p>Stats, forme, tendances : une lecture rapide des signaux importants.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🌍</div>
+            <h3>Global Coverage</h3>
+            <p>Une couverture multi-compétitions, pensée pour scaler.</p>
+          </div>
+          <div class="card">
+            <div class="icon">✨</div>
+            <h3>Modern UX</h3>
+            <p>Une interface clean, cohérente, “premium”, inspirée des meilleurs designs.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features" class="section reveal">
-      <h2>Highlights</h2>
-      <div class="features">
-        <div class="feat">
-          <b>Advanced Match Analysis</b>
-          <p>Key trends, form, context, and structured insights in a clean reading experience.</p>
+    <section id="screens">
+      <div class="container">
+        <div class="sectionTitle">
+          <div>
+            <h2>Screenshots</h2>
+            <p>Click sur un screen pour l’ouvrir en plein écran (lightbox).</p>
+          </div>
         </div>
-        <div class="feat">
-          <b>Expert-Curated Selections</b>
-          <p>Carefully selected fixtures to help you focus on the most relevant games.</p>
+
+        <div class="gallery">
+          <div class="shot" data-title="Top Curated Matches" data-img="assets/01.png">
+            <img src="assets/01.png" alt="Top Curated Matches" />
+            <div class="cap"><span>Top Curated Matches</span><span class="pill">01</span></div>
+          </div>
+          <div class="shot" data-title="Picked By Experts" data-img="assets/02.png">
+            <img src="assets/02.png" alt="Picked By Experts" />
+            <div class="cap"><span>Picked By Experts</span><span class="pill">02</span></div>
+          </div>
+          <div class="shot" data-title="Smart Bet Planning" data-img="assets/03.png">
+            <img src="assets/03.png" alt="Smart Bet Planning" />
+            <div class="cap"><span>Smart Bet Planning</span><span class="pill">03</span></div>
+          </div>
+          <div class="shot" data-title="Bet With Strategy" data-img="assets/04.png">
+            <img src="assets/04.png" alt="Bet With Strategy" />
+            <div class="cap"><span>Bet With Strategy</span><span class="pill">04</span></div>
+          </div>
+          <div class="shot" data-title="Data Backed Selections" data-img="assets/05.png">
+            <img src="assets/05.png" alt="Data Backed Selections" />
+            <div class="cap"><span>Data Backed Selections</span><span class="pill">05</span></div>
+          </div>
+          <div class="shot" data-title="Advanced Match Insights" data-img="assets/06.png">
+            <img src="assets/06.png" alt="Advanced Match Insights" />
+            <div class="cap"><span>Advanced Match Insights</span><span class="pill">06</span></div>
+          </div>
+          <div class="shot" data-title="Global League Coverage" data-img="assets/07.png">
+            <img src="assets/07.png" alt="Global League Coverage" />
+            <div class="cap"><span>Global League Coverage</span><span class="pill">07</span></div>
+          </div>
+          <div class="shot" data-title="Complete League Standings" data-img="assets/08.png">
+            <img src="assets/08.png" alt="Complete League Standings" />
+            <div class="cap"><span>Complete League Standings</span><span class="pill">08</span></div>
+          </div>
         </div>
-        <div class="feat">
-          <b>Smart Planning Tools</b>
-          <p>Organize your picks and explore outcomes with an intuitive, premium UX.</p>
-        </div>
+
+        <div class="divider"></div>
       </div>
     </section>
 
-    <section class="section reveal">
-      <h2>More</h2>
-      <div class="twoCol">
-        <div class="feat">
-          <b>Performance-first</b>
-          <p>Designed for fast navigation and smooth content consumption.</p>
+    <section id="contact">
+      <div class="container">
+        <div class="sectionTitle">
+          <div>
+            <h2>Contact</h2>
+            <p>Ajoute ton email support (recommandé Play Console). Exemple : support@tondomaine.com</p>
+          </div>
         </div>
-        <div class="feat">
-          <b>Official links</b>
-          <p>
-            <a class="pill" href="https://play.google.com/store/apps/details?id=com.pronofoot.plus" target="_blank">Google Play</a>
-            <a class="pill" href="/app-ads.txt" target="_blank">app-ads.txt</a>
-          </p>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icon">📩</div>
+            <h3>Email</h3>
+            <p>Remplace “support@example.com” par ton vrai email support quand tu veux.</p>
+            <p style="margin-top:10px; font-weight:900;">support@example.com</p>
+          </div>
+          <div class="card">
+            <div class="icon">🔒</div>
+            <h3>Privacy Policy</h3>
+            <p>Si tu as une page de confidentialité, mets le lien ici (important pour Play/Ads).</p>
+          </div>
+          <div class="card">
+            <div class="icon">⚙️</div>
+            <h3>Developer</h3>
+            <p>Site conçu pour la validation + présentation produit (simple, rapide, pro).</p>
+          </div>
         </div>
       </div>
-    </section>
-
-    <section id="contact" class="section reveal">
-      <h2>Contact</h2>
-      <p style="margin:0; color:var(--muted); line-height:1.7;">
-        For support or inquiries:<br>
-        <a href="mailto:pronofootplus.app@gmail.com" class="pill" style="margin-top:10px; display:inline-flex;">
-          pronofootplus.app@gmail.com
-        </a>
-      </p>
     </section>
 
     <footer>
-      <div>© 2026 PronoFoot+. All rights reserved.</div>
-      <div>
-        <a href="https://play.google.com/store/apps/details?id=com.pronofoot.plus" target="_blank">Play Store</a>
-        &nbsp;•&nbsp;
-        <a href="/app-ads.txt" target="_blank">app-ads.txt</a>
+      <div class="container">
+        <div class="fgrid">
+          <div>
+            <div style="font-weight:900; color:rgba(255,255,255,.9);">PronoFoot+</div>
+            <div style="margin-top:6px;">© <span id="y"></span> — Official developer website</div>
+          </div>
+
+          <div class="smallLinks">
+            <a href="/app-ads.txt" target="_blank" rel="noopener">app-ads.txt</a>
+            <a href="#screens">Screenshots</a>
+            <a href="#features">Features</a>
+          </div>
+        </div>
       </div>
     </footer>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lb" id="lb">
+    <div class="lbCard" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+      <div class="lbTop">
+        <b id="lbTitle">Screenshot</b>
+        <button class="lbClose" id="lbClose" aria-label="Close">✕</button>
+      </div>
+      <img class="lbImg" id="lbImg" alt="Screenshot large preview" />
+    </div>
   </div>
 
   <script>
-    // Scroll reveal (lightweight, no libraries)
-    const els = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) e.target.classList.add('on');
-      }
-    }, { threshold: 0.12 });
-    els.forEach(el => io.observe(el));
+    // Year
+    document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Parallax tilt on screenshots (subtle)
-    const stack = document.querySelector('.phoneStack');
-    if (stack) {
-      stack.addEventListener('mousemove', (ev) => {
-        const r = stack.getBoundingClientRect();
-        const x = (ev.clientX - r.left) / r.width - 0.5;
-        const y = (ev.clientY - r.top) / r.height - 0.5;
-        stack.style.transform = `rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
+    // Scroll reveal
+    const revealEls = [...document.querySelectorAll(".card, .shot")];
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add("reveal");
+          io.unobserve(e.target);
+        }
       });
-      stack.addEventListener('mouseleave', () => {
-        stack.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    }, { threshold: 0.12 });
+    revealEls.forEach(el=>io.observe(el));
+
+    // 3D tilt phone
+    const tilt = document.getElementById("tilt");
+    const phone = document.getElementById("phone");
+    let raf = null;
+
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+    tilt.addEventListener("mousemove", (ev)=>{
+      const r = tilt.getBoundingClientRect();
+      const x = (ev.clientX - r.left) / r.width;
+      const y = (ev.clientY - r.top) / r.height;
+
+      const rotY = clamp((x - 0.5) * 22, -14, 14);
+      const rotX = clamp(-(y - 0.5) * 18, -12, 12);
+
+      if(raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(()=>{
+        phone.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
       });
+    });
+
+    tilt.addEventListener("mouseleave", ()=>{
+      phone.style.transform = "rotateX(6deg) rotateY(-10deg)";
+    });
+
+    // Lightbox
+    const lb = document.getElementById("lb");
+    const lbImg = document.getElementById("lbImg");
+    const lbTitle = document.getElementById("lbTitle");
+    const lbClose = document.getElementById("lbClose");
+
+    function openLB(title, img){
+      lbTitle.textContent = title;
+      lbImg.src = img;
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
     }
+    function closeLB(){
+      lb.classList.remove("open");
+      lbImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".shot").forEach(s=>{
+      s.addEventListener("click", ()=>{
+        openLB(s.dataset.title || "Screenshot", s.dataset.img);
+      });
+    });
+    lbClose.addEventListener("click", closeLB);
+    lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLB(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLB(); });
   </script>
 </body>
 </html>
