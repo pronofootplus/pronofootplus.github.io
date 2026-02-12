@@ -4,31 +4,27 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- ✅ IMPORTANT: garder la vérification -->
+  <!-- ✅ Garde la vérification -->
   <meta name="google-site-verification" content="7cEFltr7OFNyrphsOdiHcveijQlPrvOThkUcuyXSbeg" />
 
-  <title>PronoFoot+ — Data-Driven Football Picks</title>
-  <meta name="description" content="PronoFoot+ — Expert picks, smart bet planning, advanced match insights, and global league coverage." />
+  <title>PronoFoot+ — Expert Football Picks</title>
+  <meta name="description" content="PronoFoot+ — Curated matches, expert picks, smart ticket planning and premium insights." />
   <meta name="theme-color" content="#050f0e" />
 
   <style>
     :root{
-      --bg0:#030a09;
+      --bg0:#040a09;
       --bg1:#061a16;
       --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.10);
       --line: rgba(255,255,255,.12);
       --text: rgba(245,255,252,.94);
       --muted: rgba(245,255,252,.70);
-
       --accent:#25e6b1;
       --accent2:#19c9ff;
       --accent3:#a855f7;
-
+      --shadow: 0 30px 120px rgba(0,0,0,.62);
+      --shadow2: 0 16px 60px rgba(0,0,0,.35);
       --r: 22px;
-      --shadow: 0 26px 100px rgba(0,0,0,.58);
-      --shadow2: 0 16px 50px rgba(0,0,0,.34);
-
       --max: 1180px;
     }
 
@@ -38,512 +34,264 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
-      background: radial-gradient(1100px 700px at 18% 10%, rgba(37,230,177,.18), transparent 60%),
-                  radial-gradient(1000px 700px at 82% 18%, rgba(25,201,255,.14), transparent 60%),
-                  radial-gradient(1000px 800px at 55% 95%, rgba(168,85,247,.10), transparent 60%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      background:
+        radial-gradient(1100px 700px at 15% 10%, rgba(37,230,177,.18), transparent 60%),
+        radial-gradient(1000px 700px at 80% 18%, rgba(25,201,255,.14), transparent 60%),
+        radial-gradient(900px 800px at 55% 95%, rgba(168,85,247,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
 
     a{ color:inherit; text-decoration:none; }
     .container{ width:min(var(--max), 92vw); margin:0 auto; }
 
-    /* ===== Background FX ===== */
-    #fx{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-    }
+    /* ===== Background (Dipla-like) ===== */
     .grid{
-      position:fixed;
-      inset:-70px;
-      z-index:0;
-      pointer-events:none;
-      opacity:.10;
+      position:fixed; inset:-70px; z-index:0; pointer-events:none; opacity:.10;
       background:
         linear-gradient(to right, rgba(255,255,255,.10) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.10) 1px, transparent 1px);
       background-size: 70px 70px;
-      mask-image: radial-gradient(circle at 40% 15%, rgba(0,0,0,1), rgba(0,0,0,.32) 55%, rgba(0,0,0,0) 78%);
+      mask-image: radial-gradient(circle at 40% 10%, rgba(0,0,0,1), rgba(0,0,0,.28) 55%, rgba(0,0,0,0) 78%);
     }
     .noise{
-      position:fixed;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      opacity:.06;
+      position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.06;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
     }
-    .blobs{
-      position:fixed;
-      inset:-30vh -30vw;
-      z-index:0;
-      pointer-events:none;
-      filter: blur(28px);
-      opacity:.78;
-    }
+    .blobs{ position:fixed; inset:-30vh -30vw; z-index:0; pointer-events:none; filter: blur(26px); opacity:.78; }
     .blob{
-      position:absolute;
-      width: 56vmax;
-      height: 56vmax;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 60%),
-                  radial-gradient(circle at 50% 50%, rgba(37,230,177,.25), transparent 62%);
+      position:absolute; width: 56vmax; height: 56vmax; border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.34), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(37,230,177,.22), transparent 62%);
       mix-blend-mode: screen;
-      animation: drift 18s ease-in-out infinite;
       transform: translate3d(0,0,0);
     }
     .blob.b2{
-      width: 50vmax;
-      height: 50vmax;
-      left: 56%;
-      top: 0%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 60%),
-                  radial-gradient(circle at 50% 50%, rgba(25,201,255,.22), transparent 62%);
-      animation-duration: 22s;
+      width: 48vmax; height: 48vmax; left: 56%; top: 0%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.24), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(25,201,255,.18), transparent 62%);
     }
     .blob.b3{
-      width: 48vmax;
-      height: 48vmax;
-      left: 16%;
-      top: 56%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 60%),
-                  radial-gradient(circle at 50% 50%, rgba(168,85,247,.18), transparent 62%);
-      animation-duration: 24s;
-    }
-    @keyframes drift{
-      0%{ transform: translate(0,0) scale(1); }
-      35%{ transform: translate(6vw, 4vh) scale(1.03); }
-      65%{ transform: translate(-4vw, 6vh) scale(0.98); }
-      100%{ transform: translate(0,0) scale(1); }
+      width: 46vmax; height: 46vmax; left: 14%; top: 58%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(168,85,247,.16), transparent 62%);
     }
 
-    /* ===== Header ===== */
+    /* ===== Top Nav ===== */
     header{
-      position:sticky;
-      top:0;
-      z-index:50;
+      position:sticky; top:0; z-index:50;
       backdrop-filter: blur(16px);
-      background: rgba(3,10,9,.60);
-      border-bottom: 1px solid var(--line);
+      background: rgba(3,10,9,.62);
+      border-bottom:1px solid var(--line);
     }
-    .nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding: 14px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight: 950;
-      letter-spacing: .2px;
-      user-select:none;
-    }
+    .nav{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:950; letter-spacing:.2px; user-select:none; }
     .logoDot{
       width:12px; height:12px; border-radius:999px;
       background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
-      box-shadow: 0 0 20px rgba(37,230,177,.55);
+      box-shadow: 0 0 22px rgba(37,230,177,.55);
     }
-    .navlinks{
-      display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 13px;
-    }
-    .navlinks a{
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-    }
-    .navlinks a:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.08);
-      color: var(--text);
-    }
+    .navlinks{ display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-weight:900; font-size:13px; }
+    .navlinks a{ padding:8px 10px; border-radius:12px; border:1px solid transparent; }
+    .navlinks a:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); color: var(--text); }
     .btn{
       display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
+      padding:10px 14px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      font-weight: 950;
-      font-size: 13px;
+      font-weight:950; font-size:13px;
       box-shadow: 0 10px 30px rgba(0,0,0,.18);
       transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
       white-space:nowrap;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.10);
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 18px 46px rgba(0,0,0,.28);
-    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22); box-shadow: 0 18px 46px rgba(0,0,0,.28); }
     .btn.primary{
       border-color: rgba(37,230,177,.35);
       background: linear-gradient(135deg, rgba(37,230,177,.22), rgba(25,201,255,.14));
       box-shadow: 0 18px 50px rgba(37,230,177,.18);
     }
 
-    /* ===== Hero ===== */
     main{ position:relative; z-index:10; }
+
+    /* ===== Hero (Dipla-like : full + floating cards) ===== */
     .hero{
-      padding: 66px 0 30px;
+      position:relative;
+      min-height: calc(100vh - 62px);
+      display:flex; align-items:center;
+      padding: 56px 0 30px;
     }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.12fr .88fr;
+      grid-template-columns: 1.05fr .95fr;
       gap: 28px;
       align-items:center;
     }
-    @media (max-width: 980px){
-      .heroGrid{ grid-template-columns:1fr; }
-    }
+    @media (max-width: 980px){ .heroGrid{ grid-template-columns: 1fr; } }
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
+      padding: 10px 12px; border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       color: var(--muted);
-      font-weight: 900;
-      font-size: 13px;
+      font-weight:900; font-size:13px;
       width: fit-content;
     }
     .pulse{
       width:10px; height:10px; border-radius:999px;
       background: var(--accent2);
       box-shadow: 0 0 18px rgba(25,201,255,.55);
-      animation: ping 1.6s ease-in-out infinite;
-    }
-    @keyframes ping{
-      0%,100%{ transform: scale(1); opacity:1; }
-      50%{ transform: scale(1.25); opacity:.65; }
     }
 
     h1{
       margin: 14px 0 10px;
-      font-size: clamp(38px, 5.2vw, 70px);
-      line-height: 1.03;
+      font-size: clamp(38px, 5.3vw, 72px);
+      line-height:1.02;
       letter-spacing:-1px;
     }
     .grad{
       background: linear-gradient(90deg, #fff, rgba(255,255,255,.92), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
     }
-    .sub{
-      margin: 0 0 22px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 16px;
-      max-width: 66ch;
-    }
-    .ctaRow{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-top: 12px;
-    }
+    .sub{ margin: 0 0 22px; color: var(--muted); line-height:1.75; font-size:16px; max-width:66ch; }
+    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
 
-    .miniStats{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 12px;
-    }
-    @media (max-width: 560px){
-      .miniStats{ grid-template-columns:1fr; }
-    }
-    .stat{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-    }
-    .stat:before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background: radial-gradient(280px 140px at 20% 0%, rgba(37,230,177,.14), transparent 62%);
-      opacity:.8;
-      pointer-events:none;
-    }
-    .stat b{ display:block; font-size: 14px; }
-    .stat span{ display:block; color: var(--muted); font-size: 13px; margin-top: 6px; line-height: 1.6; }
+    /* Floating cards */
+    .floatZone{ position:relative; height: 620px; max-height: 70vh; min-height: 520px; }
+    @media (max-width: 980px){ .floatZone{ height: 560px; max-height: none; } }
 
-    /* ===== Phone 3D / Hero ===== */
-    .stage{
-      perspective: 1200px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding: 10px 0;
-    }
-    .phoneWrap{
-      width: min(480px, 92vw);
-      position: relative;
-      transform-style: preserve-3d;
-    }
-    .halo{
-      position:absolute;
-      inset:-34px;
-      border-radius: 40px;
-      background: radial-gradient(520px 240px at 45% 25%, rgba(37,230,177,.18), transparent 62%),
-                  radial-gradient(520px 260px at 72% 60%, rgba(25,201,255,.15), transparent 62%),
-                  radial-gradient(520px 240px at 30% 84%, rgba(168,85,247,.12), transparent 62%);
-      filter: blur(10px);
-      z-index:0;
-      transform: translateZ(-10px);
-    }
     .phone{
-      position:relative;
-      z-index:2;
-      border-radius: 30px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      transform: rotateX(8deg) rotateY(-13deg);
-      transition: transform .16s ease;
-      will-change: transform;
-      cursor:pointer;
-    }
-    .phone img{ width:100%; display:block; }
-    .shine{
-      position:absolute;
-      inset:-40%;
-      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.14) 50%, transparent 65%);
-      transform: translateX(-40%) rotate(12deg);
-      animation: shine 5.2s ease-in-out infinite;
-      pointer-events:none;
-      mix-blend-mode: overlay;
-    }
-    @keyframes shine{
-      0%{ transform: translateX(-55%) rotate(12deg); opacity:0; }
-      25%{ opacity:.75; }
-      55%{ opacity:0; }
-      100%{ transform: translateX(55%) rotate(12deg); opacity:0; }
-    }
-
-    /* ===== Sections ===== */
-    section{ padding: 62px 0; }
-    .sectionTitle{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-bottom: 18px;
-    }
-    .sectionTitle h2{
-      margin:0;
-      font-size: clamp(22px, 3.2vw, 38px);
-      letter-spacing:-.4px;
-    }
-    .sectionTitle p{
-      margin:0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.75;
-      max-width: 66ch;
-    }
-    .divider{
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
-      margin: 28px 0;
-    }
-
-    /* ===== Feature cards ===== */
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 14px;
-    }
-    @media (max-width: 980px){
-      .cards{ grid-template-columns:1fr; }
-    }
-    .card{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      border-radius: var(--r);
-      padding: 16px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-      transform: translateY(12px);
-      opacity: 0;
-      transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .7s ease;
-    }
-    .card.reveal{ transform: translateY(0); opacity:1; }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background: radial-gradient(340px 160px at 22% 0%, rgba(37,230,177,.18), transparent 60%);
-      opacity:.65;
-      pointer-events:none;
-    }
-    .icon{
-      width: 46px; height: 46px;
-      border-radius: 16px;
-      display:grid; place-items:center;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 14px 30px rgba(0,0,0,.22);
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
-    .card h3{ margin:0 0 6px; font-size: 16px; }
-    .card p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.7; }
-
-    /* ===== Dribbble Showcase ===== */
-    .showcase{ padding: 10px 0 76px; }
-    .stickyWrap{
-      position: relative;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      border-radius: 26px;
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
-    .stickyHead{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.14);
-      backdrop-filter: blur(10px);
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .stickyHead b{ font-size: 14px; }
-    .chips{ display:flex; gap:8px; flex-wrap:wrap; }
-    .chip{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 12px;
-      cursor:pointer;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-      user-select:none;
-    }
-    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
-    .chip.active{
-      border-color: rgba(37,230,177,.38);
-      background: linear-gradient(135deg, rgba(37,230,177,.18), rgba(25,201,255,.12));
-      color: rgba(255,255,255,.92);
-      box-shadow: 0 16px 40px rgba(37,230,177,.12);
-    }
-
-    .stickyBody{
-      display:grid;
-      grid-template-columns: 1.12fr .88fr;
-      min-height: 540px;
-    }
-    @media (max-width: 980px){
-      .stickyBody{ grid-template-columns:1fr; }
-    }
-
-    .copy{
-      padding: 18px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap: 10px;
-    }
-    .copy h3{
-      margin:0;
-      font-size: clamp(18px, 2.4vw, 28px);
-      letter-spacing:-.3px;
-    }
-    .copy p{
-      margin:0;
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 14px;
-      max-width: 64ch;
-    }
-    .bullets{
-      margin-top: 8px;
-      display:grid;
-      gap: 10px;
-    }
-    .bullet{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      padding: 12px 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .bullet i{
-      width: 34px; height: 34px;
-      border-radius: 12px;
-      display:grid; place-items:center;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      flex: 0 0 auto;
-      font-style: normal;
-    }
-    .bullet b{ display:block; font-size: 13px; }
-    .bullet span{ display:block; color: var(--muted); font-size: 12px; line-height:1.6; margin-top: 2px; }
-
-    .preview{
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      border-left: 1px solid rgba(255,255,255,.10);
-      background: radial-gradient(560px 260px at 40% 20%, rgba(37,230,177,.12), transparent 62%),
-                  radial-gradient(560px 260px at 70% 70%, rgba(25,201,255,.10), transparent 62%);
-    }
-    @media (max-width: 980px){
-      .preview{ border-left:none; border-top: 1px solid rgba(255,255,255,.10); }
-    }
-
-    .stack{
-      position:relative;
-      width: min(380px, 86vw);
+      position:absolute; inset: 0;
+      margin:auto;
+      width: min(360px, 78vw);
       aspect-ratio: 9/18;
       border-radius: 30px;
       overflow:hidden;
-      border: 1px solid rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.04);
       box-shadow: var(--shadow);
-      transform: rotateX(7deg) rotateY(-10deg);
-      transition: transform .22s ease;
-      will-change: transform;
+      transform-style: preserve-3d;
       cursor:pointer;
     }
-    .stack img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-    }
-    .stackGlow{
-      position:absolute; inset:-46px;
-      background: radial-gradient(240px 240px at 50% 30%, rgba(37,230,177,.25), transparent 65%),
-                  radial-gradient(260px 260px at 60% 70%, rgba(25,201,255,.18), transparent 65%);
-      filter: blur(14px);
+    .phone img{ width:100%; height:100%; object-fit: cover; display:block; transform: scale(1.02); }
+    .shine{
+      position:absolute; inset:-40%;
+      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.14) 50%, transparent 65%);
+      transform: translateX(-40%) rotate(12deg);
       pointer-events:none;
-      opacity:.7;
+      mix-blend-mode: overlay;
     }
 
-    /* ===== Gallery ===== */
+    .fCard{
+      position:absolute;
+      width: 250px;
+      max-width: 70vw;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,24,20,.55);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow2);
+      padding: 14px;
+      transform-style: preserve-3d;
+    }
+    .fTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .badge{
+      padding: 6px 10px; border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight:950; font-size:11px;
+      white-space:nowrap;
+    }
+    .fTitle{ font-weight: 950; font-size: 13px; }
+    .fDesc{ margin-top:8px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+
+    .f1{ left: 2%; top: 8%; }
+    .f2{ right: 4%; top: 18%; }
+    .f3{ left: 6%; bottom: 10%; }
+    .f4{ right: 2%; bottom: 14%; }
+
+    /* ===== Sections ===== */
+    section{ padding: 76px 0; }
+    .sectionTitle{
+      display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap;
+      margin-bottom: 18px;
+    }
+    .sectionTitle h2{
+      margin:0; font-size: clamp(22px, 3.2vw, 40px); letter-spacing:-.4px;
+    }
+    .sectionTitle p{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.75; max-width: 68ch; }
+
+    .divider{ height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); margin: 28px 0; }
+
+    /* Feature row */
+    .featuresGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .featuresGrid{ grid-template-columns: 1fr; } }
+
+    .bigCard{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 26px;
+      padding: 18px;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+      min-height: 360px;
+    }
+    .bigCard:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(520px 220px at 20% 10%, rgba(37,230,177,.16), transparent 62%),
+        radial-gradient(520px 220px at 70% 90%, rgba(25,201,255,.12), transparent 62%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .bigCard h3{ margin:0 0 8px; font-size: 18px; position:relative; }
+    .bigCard p{ margin:0 0 14px; color: var(--muted); line-height: 1.75; font-size: 13px; position:relative; }
+
+    .miniList{ display:grid; gap: 10px; position:relative; }
+    .miniItem{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .miniIcon{
+      width: 36px; height: 36px; border-radius: 14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      flex: 0 0 auto;
+      font-size: 16px;
+    }
+    .miniItem b{ display:block; font-size: 13px; }
+    .miniItem span{ display:block; color: var(--muted); font-size: 12px; line-height:1.6; margin-top: 2px; }
+
+    .mock{
+      position:relative;
+      border-radius: 26px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      height: 100%;
+      min-height: 360px;
+      cursor:pointer;
+    }
+    .mock img{ width:100%; height:100%; object-fit: cover; display:block; transform: scale(1.03); }
+
+    /* Screens gallery */
     .gallery{
       display:grid;
       grid-template-columns: repeat(4, minmax(0,1fr));
@@ -559,45 +307,31 @@
       overflow:hidden;
       box-shadow: var(--shadow2);
       cursor:pointer;
-      transform: translateY(12px);
-      opacity:0;
-      transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .7s ease, border-color .2s ease;
       position:relative;
     }
-    .shot.reveal{ transform: translateY(0); opacity:1; }
-    .shot:hover{ border-color: rgba(37,230,177,.35); }
     .shot img{ width:100%; height: 360px; object-fit: cover; display:block; }
     @media (max-width: 980px){ .shot img{ height: 320px; } }
     @media (max-width: 520px){ .shot img{ height:auto; } }
-
     .cap{
-      position:absolute;
-      left:10px; right:10px; bottom:10px;
-      padding: 10px 12px;
-      border-radius: 14px;
+      position:absolute; left:10px; right:10px; bottom:10px;
+      padding: 10px 12px; border-radius: 14px;
       background: rgba(3,10,9,.74);
       border: 1px solid rgba(255,255,255,.10);
       backdrop-filter: blur(10px);
       color: rgba(255,255,255,.92);
-      font-weight: 950;
-      font-size: 12px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
+      font-weight: 950; font-size: 12px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
     }
     .tag{
-      padding: 6px 10px;
-      border-radius: 999px;
+      padding: 6px 10px; border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       color: var(--muted);
-      font-weight: 950;
-      font-size: 11px;
+      font-weight: 950; font-size: 11px;
       white-space:nowrap;
     }
 
-    /* ===== Contact ===== */
+    /* Contact + footer */
     .contactCard{
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
@@ -614,18 +348,18 @@
     }
     .contactCard:before{
       content:"";
-      position:absolute;
-      inset:-1px;
-      background: radial-gradient(520px 220px at 20% 10%, rgba(37,230,177,.16), transparent 62%),
-                  radial-gradient(520px 220px at 70% 90%, rgba(25,201,255,.12), transparent 62%);
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(520px 220px at 20% 10%, rgba(37,230,177,.16), transparent 62%),
+        radial-gradient(520px 220px at 70% 90%, rgba(25,201,255,.12), transparent 62%);
       opacity:.85;
       pointer-events:none;
     }
-    .contactCard b{ font-size: 16px; position:relative; }
-    .contactCard p{ margin:6px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; position:relative; }
-    .contactRight{ display:flex; gap:10px; flex-wrap:wrap; position:relative; }
+    .contactCard b, .contactCard p, .contactRight{ position:relative; }
+    .contactCard b{ font-size:16px; }
+    .contactCard p{ margin:6px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; }
+    .contactRight{ display:flex; gap:10px; flex-wrap:wrap; }
 
-    /* ===== Footer ===== */
     footer{
       padding: 26px 0 44px;
       border-top: 1px solid var(--line);
@@ -642,14 +376,12 @@
     }
     .smallLinks a:hover{ background: rgba(255,255,255,.08); }
 
-    /* ===== Lightbox ===== */
+    /* Lightbox */
     .lb{
-      position:fixed; inset:0;
-      display:none;
-      align-items:center; justify-content:center;
+      position:fixed; inset:0; z-index:999;
+      display:none; align-items:center; justify-content:center;
       background: rgba(0,0,0,.74);
       backdrop-filter: blur(10px);
-      z-index:999;
       padding: 18px;
     }
     .lb.open{ display:flex; }
@@ -660,13 +392,11 @@
       background: rgba(8,20,18,.70);
       box-shadow: var(--shadow);
       overflow:hidden;
-      position:relative;
     }
     .lbTop{
       display:flex; justify-content:space-between; align-items:center;
       padding: 12px 12px;
       border-bottom: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.92);
     }
     .lbTop b{ font-size: 13px; }
     .lbClose{
@@ -678,11 +408,7 @@
       font-weight: 950;
       color: rgba(255,255,255,.92);
     }
-    .lbImgWrap{
-      display:grid;
-      place-items:center;
-      padding: 16px;
-    }
+    .lbImgWrap{ display:grid; place-items:center; padding:16px; }
     .lbImg{
       width: min(820px, 92vw);
       max-height: 80vh;
@@ -691,12 +417,13 @@
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.25);
     }
+
+    /* Smooth anchor */
+    html{ scroll-behavior:smooth; }
   </style>
 </head>
 
 <body>
-  <!-- FX layers -->
-  <canvas id="fx" aria-hidden="true"></canvas>
   <div class="blobs" aria-hidden="true">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
@@ -714,8 +441,8 @@
         </div>
 
         <nav class="navlinks" aria-label="Navigation">
+          <a href="#experience">Experience</a>
           <a href="#features">Features</a>
-          <a href="#showcase">Showcase</a>
           <a href="#screens">Screens</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -740,51 +467,110 @@
             </div>
 
             <h1>
-              Bet smarter with
-              <span class="grad">PronoFoot+</span>
+              Live football picks with a
+              <span class="grad">premium experience</span>
             </h1>
 
             <p class="sub">
-              A premium football companion built for modern bettors: curated matches, expert picks,
-              advanced insights, and smart ticket planning — all in one clean, fast, and beautiful experience.
+              PronoFoot+ is built like a product: curated matches, expert picks, smart ticket planning,
+              and advanced insights — in a clean, fast, Dribbble-grade UI.
             </p>
 
             <div class="ctaRow">
-              <a class="btn primary" href="#showcase">Explore the experience</a>
+              <a class="btn primary" href="#experience">Explore animations</a>
               <a class="btn" href="#contact">Contact</a>
-              <a class="btn" href="#screens">Screens gallery</a>
+              <a class="btn" href="#screens">Gallery</a>
             </div>
 
-            <div class="miniStats">
-              <div class="stat">
-                <b>Expert Picks</b>
-                <span>Selections structured for clarity and confidence — with insights you can actually use.</span>
-              </div>
-              <div class="stat">
-                <b>Smart Tickets</b>
-                <span>Plan bets with strategy: stakes, ROI logic, and a clean ticket breakdown.</span>
-              </div>
-              <div class="stat">
-                <b>Advanced Stats</b>
-                <span>Performance trends, streaks, and match context — designed for quick decisions.</span>
-              </div>
+            <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-weight:900; font-size:13px;">
+              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Curated Matches</span>
+              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Expert Picks</span>
+              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Smart Tickets</span>
+              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Insights</span>
             </div>
           </div>
 
-          <div class="stage">
-            <div class="phoneWrap">
-              <div class="halo" aria-hidden="true"></div>
-
-              <!-- Hero phone uses one of your screenshots -->
-              <div class="phone tilt" data-tilt-strength="14" data-lightbox-src="assets/07.png" data-lightbox-title="Global League Coverage">
-                <img src="assets/07.png" alt="PronoFoot+ screenshot" />
-                <div class="shine" aria-hidden="true"></div>
-              </div>
-
-              <p style="margin:12px 0 0; color:var(--muted); font-size:12px; text-align:center;">
-                Click to preview in full size
-              </p>
+          <div class="floatZone" id="floatZone">
+            <div class="phone js-tilt" data-lightbox-src="assets/07.png" data-lightbox-title="PronoFoot+ — Global League Coverage">
+              <img src="assets/07.png" alt="PronoFoot+ screenshot" />
+              <div class="shine" aria-hidden="true"></div>
             </div>
+
+            <div class="fCard f1 js-float">
+              <div class="fTop">
+                <div class="fTitle">Top curated matches</div>
+                <div class="badge">+ New</div>
+              </div>
+              <div class="fDesc">A focused selection — no endless scrolling. Just the matches that matter.</div>
+            </div>
+
+            <div class="fCard f2 js-float">
+              <div class="fTop">
+                <div class="fTitle">Expert picks</div>
+                <div class="badge">Premium UX</div>
+              </div>
+              <div class="fDesc">Readable reasoning, consistent format, confidence cues.</div>
+            </div>
+
+            <div class="fCard f3 js-float">
+              <div class="fTop">
+                <div class="fTitle">Smart bet planning</div>
+                <div class="badge">Ticket</div>
+              </div>
+              <div class="fDesc">Odds, stake, potential returns — clean recap like a real product.</div>
+            </div>
+
+            <div class="fCard f4 js-float">
+              <div class="fTop">
+                <div class="fTitle">Advanced insights</div>
+                <div class="badge">Data</div>
+              </div>
+              <div class="fDesc">Trends, streaks & context — designed for fast decisions.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE (scroll animations) -->
+    <section id="experience">
+      <div class="container">
+        <div class="sectionTitle">
+          <div>
+            <h2>Dipla-style scroll experience</h2>
+            <p>Parallax, stagger reveals, floating elements, and sticky mock screens — smooth and premium.</p>
+          </div>
+        </div>
+
+        <div class="featuresGrid">
+          <div class="bigCard" id="expCopy">
+            <h3>Everything you need, one place</h3>
+            <p>We keep the UI minimal and structured so you can understand the pick fast — and act fast.</p>
+
+            <div class="miniList">
+              <div class="miniItem">
+                <div class="miniIcon">🏆</div>
+                <div><b>Curated matches</b><span>Selected with caution — not random volume.</span></div>
+              </div>
+              <div class="miniItem">
+                <div class="miniIcon">🧠</div>
+                <div><b>Expert analysis</b><span>Clean reasoning, consistent templates, premium readability.</span></div>
+              </div>
+              <div class="miniItem">
+                <div class="miniIcon">🎟️</div>
+                <div><b>Smart tickets</b><span>Plan your bet and preview potential returns.</span></div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.7;">
+              Scroll down — screens and blocks animate progressively (like Dipla).
+            </p>
+          </div>
+
+          <div class="mock js-tilt" data-lightbox-src="assets/02.png" data-lightbox-title="Picked By Experts">
+            <img src="assets/02.png" alt="Picked By Experts" />
           </div>
         </div>
       </div>
@@ -795,88 +581,62 @@
       <div class="container">
         <div class="sectionTitle">
           <div>
-            <h2>Designed like a product, not just an app</h2>
-            <p>Premium UI, fast reading, and insights that feel “Dribbble-grade” but remain practical.</p>
+            <h2>Features built with discipline</h2>
+            <p>Premium UI + product thinking. Animations are subtle, not “TikTok flashy”.</p>
           </div>
         </div>
 
-        <div class="cards">
-          <div class="card revealOnView">
-            <div class="icon">🏆</div>
-            <h3>Top curated matches</h3>
-            <p>Focus on what matters: the most relevant fixtures and the best opportunities.</p>
+        <div class="featuresGrid">
+          <div class="mock js-tilt" data-lightbox-src="assets/03.png" data-lightbox-title="Smart Bet Planning">
+            <img src="assets/03.png" alt="Smart Bet Planning" />
           </div>
-          <div class="card revealOnView">
-            <div class="icon">🧠</div>
-            <h3>Picked by experts</h3>
-            <p>Clear explanations, consistent format, and confidence indicators for every selection.</p>
-          </div>
-          <div class="card revealOnView">
-            <div class="icon">📈</div>
-            <h3>Advanced match insights</h3>
-            <p>Performance, trends, streaks and context — presented for quick consumption.</p>
+
+          <div class="bigCard">
+            <h3>Smart Bet Planning</h3>
+            <p>A clean ticket builder so the user can manage their bet logically — not emotionally.</p>
+
+            <div class="miniList">
+              <div class="miniItem">
+                <div class="miniIcon">📌</div>
+                <div><b>Stake clarity</b><span>Simple structure, no clutter.</span></div>
+              </div>
+              <div class="miniItem">
+                <div class="miniIcon">📈</div>
+                <div><b>Potential returns</b><span>Preview outcomes in a premium layout.</span></div>
+              </div>
+              <div class="miniItem">
+                <div class="miniIcon">✨</div>
+                <div><b>Modern UI motion</b><span>Stagger reveal + parallax for “product-grade” feel.</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="divider"></div>
 
-        <div class="cards">
-          <div class="card revealOnView">
-            <div class="icon">🎟️</div>
-            <h3>Smart bet planning</h3>
-            <p>Ticket creation with stake logic and a clean, structured recap.</p>
-          </div>
-          <div class="card revealOnView">
-            <div class="icon">🌍</div>
-            <h3>Global league coverage</h3>
-            <p>Major leagues + key competitions — with consistent visual language.</p>
-          </div>
-          <div class="card revealOnView">
-            <div class="icon">✨</div>
-            <h3>Premium UX</h3>
-            <p>Modern spacing, typography, and motion — built to feel expensive.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="featuresGrid">
+          <div class="bigCard">
+            <h3>Global coverage</h3>
+            <p>Major competitions, consistent visual language, and easy navigation.</p>
 
-    <!-- SHOWCASE -->
-    <section id="showcase" class="showcase">
-      <div class="container">
-        <div class="sectionTitle">
-          <div>
-            <h2>Dribbble-style product showcase</h2>
-            <p>Switch sections like a product demo. Smooth transitions + 3D tilt preview.</p>
-          </div>
-        </div>
-
-        <div class="stickyWrap">
-          <div class="stickyHead">
-            <b>PronoFoot+ Experience</b>
-            <div class="chips" role="tablist" aria-label="Showcase tabs">
-              <div class="chip active" data-sc="0" role="tab" aria-selected="true">Curated</div>
-              <div class="chip" data-sc="1" role="tab">Experts</div>
-              <div class="chip" data-sc="2" role="tab">Planning</div>
-              <div class="chip" data-sc="3" role="tab">AI</div>
-            </div>
-          </div>
-
-          <div class="stickyBody">
-            <div class="copy">
-              <h3 id="scTitle">Top curated matches</h3>
-              <p id="scText">
-                The app highlights the most relevant games first. Clean grouping, fast scanning, and modern hierarchy.
-              </p>
-
-              <div class="bullets" id="scBullets"></div>
-            </div>
-
-            <div class="preview">
-              <div class="stackGlow" aria-hidden="true"></div>
-              <div class="stack tilt" data-tilt-strength="16" id="scPreview" data-lightbox-src="assets/01.png" data-lightbox-title="Top Curated Matches">
-                <img id="scImg" src="assets/01.png" alt="Showcase screenshot" />
+            <div class="miniList">
+              <div class="miniItem">
+                <div class="miniIcon">🌍</div>
+                <div><b>Worldwide leagues</b><span>Follow competitions across the globe.</span></div>
+              </div>
+              <div class="miniItem">
+                <div class="miniIcon">📊</div>
+                <div><b>Detailed standings</b><span>Readable tables in a clean layout.</span></div>
+              </div>
+              <div class="miniItem">
+                <div class="miniIcon">⚡</div>
+                <div><b>Fast navigation</b><span>Designed for quick browsing.</span></div>
               </div>
             </div>
+          </div>
+
+          <div class="mock js-tilt" data-lightbox-src="assets/08.png" data-lightbox-title="Complete League Standings">
+            <img src="assets/08.png" alt="Complete League Standings" />
           </div>
         </div>
       </div>
@@ -888,47 +648,47 @@
         <div class="sectionTitle">
           <div>
             <h2>Screens gallery</h2>
-            <p>Click any screen to open it full size (lightbox). Perfect for Play / AdMob review too.</p>
+            <p>Click any screen to open full size (lightbox). Smooth entrance animations included.</p>
           </div>
         </div>
 
         <div class="gallery">
-          <div class="shot revealOnView" data-lightbox-src="assets/01.png" data-lightbox-title="Top Curated Matches">
+          <div class="shot js-shot" data-lightbox-src="assets/01.png" data-lightbox-title="Top Curated Matches">
             <img src="assets/01.png" alt="Top Curated Matches" />
             <div class="cap"><span>Top Curated Matches</span><span class="tag">Curated</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/02.png" data-lightbox-title="Picked By Experts">
+          <div class="shot js-shot" data-lightbox-src="assets/02.png" data-lightbox-title="Picked By Experts">
             <img src="assets/02.png" alt="Picked By Experts" />
             <div class="cap"><span>Picked By Experts</span><span class="tag">Expert</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/03.png" data-lightbox-title="Smart Bet Planning">
+          <div class="shot js-shot" data-lightbox-src="assets/03.png" data-lightbox-title="Smart Bet Planning">
             <img src="assets/03.png" alt="Smart Bet Planning" />
             <div class="cap"><span>Smart Bet Planning</span><span class="tag">Tickets</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/04.png" data-lightbox-title="Bet With Strategy">
+          <div class="shot js-shot" data-lightbox-src="assets/04.png" data-lightbox-title="Bet With Strategy">
             <img src="assets/04.png" alt="Bet With Strategy" />
             <div class="cap"><span>Bet With Strategy</span><span class="tag">Strategy</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/05.png" data-lightbox-title="Data Backed Selections">
+          <div class="shot js-shot" data-lightbox-src="assets/05.png" data-lightbox-title="Data Backed Selections">
             <img src="assets/05.png" alt="Data Backed Selections" />
             <div class="cap"><span>Data Backed Selections</span><span class="tag">Data</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/06.png" data-lightbox-title="Advanced Match Insights">
+          <div class="shot js-shot" data-lightbox-src="assets/06.png" data-lightbox-title="Advanced Match Insights">
             <img src="assets/06.png" alt="Advanced Match Insights" />
             <div class="cap"><span>Advanced Match Insights</span><span class="tag">Insights</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/07.png" data-lightbox-title="Global League Coverage">
+          <div class="shot js-shot" data-lightbox-src="assets/07.png" data-lightbox-title="Global League Coverage">
             <img src="assets/07.png" alt="Global League Coverage" />
             <div class="cap"><span>Global League Coverage</span><span class="tag">Coverage</span></div>
           </div>
 
-          <div class="shot revealOnView" data-lightbox-src="assets/08.png" data-lightbox-title="Complete League Standings">
+          <div class="shot js-shot" data-lightbox-src="assets/08.png" data-lightbox-title="Complete League Standings">
             <img src="assets/08.png" alt="Complete League Standings" />
             <div class="cap"><span>Complete League Standings</span><span class="tag">Standings</span></div>
           </div>
@@ -942,14 +702,14 @@
         <div class="sectionTitle">
           <div>
             <h2>Contact</h2>
-            <p>For support, business inquiries, or partnerships.</p>
+            <p>Support, partnerships, business inquiries.</p>
           </div>
         </div>
 
-        <div class="contactCard revealOnView">
+        <div class="contactCard">
           <div>
             <b>pronofootplus.contact@gmail.com</b>
-            <p>We typically respond within 24–48h. Include your app version and device if it’s a support request.</p>
+            <p>We typically respond within 24–48h. Include your app version and device if it’s support.</p>
           </div>
           <div class="contactRight">
             <a class="btn primary" href="mailto:pronofootplus.contact@gmail.com?subject=PronoFoot%2B%20Contact">Send Email</a>
@@ -973,8 +733,8 @@
           </div>
 
           <div class="smallLinks">
+            <a href="#experience">Experience</a>
             <a href="#features">Features</a>
-            <a href="#showcase">Showcase</a>
             <a href="#screens">Screens</a>
             <a href="mailto:pronofootplus.contact@gmail.com?subject=PronoFoot%2B%20Contact">Email</a>
           </div>
@@ -996,124 +756,13 @@
     </div>
   </div>
 
+  <!-- GSAP (Dipla-like scroll animations) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
   <script>
-    /* =========================
-       PARTICLES BACKGROUND (Canvas)
-       ========================= */
-    (function particles(){
-      const canvas = document.getElementById('fx');
-      const ctx = canvas.getContext('2d', { alpha: true });
-      let w, h, dpr;
-      const dots = [];
-      const N = 90;
-
-      function resize(){
-        dpr = Math.min(2, window.devicePixelRatio || 1);
-        w = canvas.width = Math.floor(window.innerWidth * dpr);
-        h = canvas.height = Math.floor(window.innerHeight * dpr);
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
-      }
-
-      function rnd(min,max){ return min + Math.random()*(max-min); }
-
-      function init(){
-        dots.length = 0;
-        for(let i=0;i<N;i++){
-          dots.push({
-            x: rnd(0,w), y: rnd(0,h),
-            vx: rnd(-.18,.18)*dpr,
-            vy: rnd(-.12,.12)*dpr,
-            r: rnd(1.2,2.6)*dpr,
-            a: rnd(.18,.55)
-          });
-        }
-      }
-
-      function step(){
-        ctx.clearRect(0,0,w,h);
-        for(const p of dots){
-          p.x += p.vx; p.y += p.vy;
-          if(p.x<0) p.x=w; if(p.x>w) p.x=0;
-          if(p.y<0) p.y=h; if(p.y>h) p.y=0;
-
-          ctx.beginPath();
-          ctx.fillStyle = `rgba(255,255,255,${p.a})`;
-          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-          ctx.fill();
-        }
-
-        for(let i=0;i<dots.length;i++){
-          for(let j=i+1;j<dots.length;j++){
-            const a = dots[i], b = dots[j];
-            const dx = a.x-b.x, dy = a.y-b.y;
-            const dist = Math.sqrt(dx*dx+dy*dy);
-            const max = 140*dpr;
-            if(dist < max){
-              const t = 1 - dist/max;
-              ctx.strokeStyle = `rgba(37,230,177,${0.10*t})`;
-              ctx.lineWidth = 1*dpr;
-              ctx.beginPath();
-              ctx.moveTo(a.x,a.y);
-              ctx.lineTo(b.x,b.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(step);
-      }
-
-      resize(); init(); step();
-      window.addEventListener('resize', () => { resize(); init(); });
-    })();
-
-    /* =========================
-       REVEAL ON SCROLL
-       ========================= */
-    (function revealOnView(){
-      const els = document.querySelectorAll('.revealOnView');
-      const io = new IntersectionObserver((entries) => {
-        for(const e of entries){
-          if(e.isIntersecting){
-            e.target.classList.add('reveal');
-            io.unobserve(e.target);
-          }
-        }
-      }, { threshold: 0.14 });
-      els.forEach(el => io.observe(el));
-    })();
-
-    /* =========================
-       TILT (3D hover)
-       ========================= */
-    function attachTilt(el){
-      const strength = Number(el.dataset.tiltStrength || 14);
-      let raf = null;
-
-      function onMove(ev){
-        const r = el.getBoundingClientRect();
-        const x = (ev.clientX - r.left) / r.width;
-        const y = (ev.clientY - r.top) / r.height;
-        const rx = (0.5 - y) * strength;
-        const ry = (x - 0.5) * strength;
-
-        if(raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-        });
-      }
-      function onLeave(){ el.style.transform = ''; }
-
-      el.addEventListener('mousemove', onMove);
-      el.addEventListener('mouseleave', onLeave);
-    }
-    document.querySelectorAll('.tilt').forEach(attachTilt);
-
-    /* =========================
-       LIGHTBOX
-       ========================= */
-    (function lightbox(){
+    // ===== Lightbox =====
+    (function(){
       const lb = document.getElementById('lb');
       const lbImg = document.getElementById('lbImg');
       const lbTitle = document.getElementById('lbTitle');
@@ -1140,100 +789,88 @@
       });
     })();
 
-    /* =========================
-       SHOWCASE TABS
-       ========================= */
-    (function showcase(){
-      const data = [
-        {
-          title: "Top curated matches",
-          text: "The app highlights the most relevant games first. Clean grouping, fast scanning, and modern hierarchy.",
-          img: "assets/01.png",
-          lightboxTitle: "Top Curated Matches",
-          bullets: [
-            ["⚡", "Fast scanning", "Visual hierarchy designed for quick decision-making."],
-            ["🎯", "Focus on value", "Curated set of matches instead of endless lists."],
-            ["🧩", "Consistent layout", "Same structure across screens for “muscle memory”."]
-          ]
-        },
-        {
-          title: "Picked by experts",
-          text: "Expert picks are presented with clarity: confidence, key insights and a format that feels premium.",
-          img: "assets/02.png",
-          lightboxTitle: "Picked By Experts",
-          bullets: [
-            ["🧠", "Structured analysis", "Clear reasoning and repeatable layout per match."],
-            ["✅", "Confidence signals", "Readable cues that support decision-making."],
-            ["✨", "Premium readability", "Typography and spacing optimized for mobile."]
-          ]
-        },
-        {
-          title: "Smart bet planning",
-          text: "Ticket planning with a clean recap: odds, stake, winnings, ROI — designed like a real product.",
-          img: "assets03.png",
-          lightboxTitle: "Smart Bet Planning",
-          bullets: [
-            ["🎟️", "Ticket recap", "Everything in one place, no clutter."],
-            ["📌", "Stake clarity", "Simple inputs and clear outcomes."],
-            ["📈", "ROI visibility", "Make choices with awareness, not vibes."]
-          ]
-        },
-        {
-          title: "AI assistant vibe",
-          text: "A premium assistant experience that feels modern and helpful — clean cards and strong hierarchy.",
-          img: "assets/04.png",
-          lightboxTitle: "Bet With Strategy",
-          bullets: [
-            ["🤖", "Assistant layout", "Feels conversational without being messy."],
-            ["🔥", "Actionable tips", "Short, clear, useful recommendations."],
-            ["🧱", "Card-based UX", "Modern blocks that keep the screen readable."]
-          ]
-        }
-      ];
-
-      // Fix common typo if any
-      data[2].img = "assets/03.png";
-
-      const chips = document.querySelectorAll('.chip');
-      const scTitle = document.getElementById('scTitle');
-      const scText = document.getElementById('scText');
-      const scImg = document.getElementById('scImg');
-      const scPreview = document.getElementById('scPreview');
-      const scBullets = document.getElementById('scBullets');
-
-      function renderBullets(items){
-        scBullets.innerHTML = items.map(([ico, t, d]) => `
-          <div class="bullet">
-            <i>${ico}</i>
-            <div>
-              <b>${t}</b>
-              <span>${d}</span>
-            </div>
-          </div>
-        `).join('');
+    // ===== Tilt (simple, smooth) =====
+    function tilt(el, strength=14){
+      let raf=null;
+      function move(ev){
+        const r = el.getBoundingClientRect();
+        const x = (ev.clientX - r.left)/r.width;
+        const y = (ev.clientY - r.top)/r.height;
+        const rx = (0.5 - y) * strength;
+        const ry = (x - 0.5) * strength;
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=> el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`);
       }
+      function leave(){ el.style.transform = ''; }
+      el.addEventListener('mousemove', move);
+      el.addEventListener('mouseleave', leave);
+    }
+    document.querySelectorAll('.js-tilt').forEach(el => tilt(el, 12));
 
-      function setActive(i){
-        chips.forEach(c => c.classList.remove('active'));
-        const chip = document.querySelector(`.chip[data-sc="${i}"]`);
-        if(chip) chip.classList.add('active');
+    // ===== GSAP Scroll Animations (Dipla-like) =====
+    gsap.registerPlugin(ScrollTrigger);
 
-        const d = data[i];
-        scTitle.textContent = d.title;
-        scText.textContent = d.text;
-        scImg.src = d.img;
-        scPreview.dataset.lightboxSrc = d.img;
-        scPreview.dataset.lightboxTitle = d.lightboxTitle;
-        renderBullets(d.bullets);
-      }
+    // Hero entrance
+    gsap.from(".pill", { y: 10, opacity: 0, duration: .7, ease: "power2.out" });
+    gsap.from("h1", { y: 18, opacity: 0, duration: .9, delay: .05, ease: "power2.out" });
+    gsap.from(".sub", { y: 18, opacity: 0, duration: .9, delay: .12, ease: "power2.out" });
+    gsap.from(".ctaRow .btn", { y: 10, opacity: 0, duration: .7, delay: .2, stagger: .07, ease: "power2.out" });
 
-      chips.forEach(ch => {
-        ch.addEventListener('click', () => setActive(Number(ch.dataset.sc)));
+    // Blobs subtle drift
+    gsap.to(".blob.b1", { x: 80, y: 50, duration: 12, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".blob.b2", { x: -70, y: 60, duration: 14, yoyo: true, repeat: -1, ease: "sine.inOut" });
+    gsap.to(".blob.b3", { x: 60, y: -50, duration: 16, yoyo: true, repeat: -1, ease: "sine.inOut" });
+
+    // Shine animation (CSS-free timeline)
+    gsap.to(".shine", { x: "120%", opacity: 0, duration: 2.4, repeat: -1, repeatDelay: 2.4, ease: "power1.inOut" });
+
+    // Floating cards parallax + oscillation
+    gsap.utils.toArray(".js-float").forEach((card, i) => {
+      gsap.to(card, { y: (i%2? 16 : -16), duration: 3.2 + i*.25, yoyo: true, repeat: -1, ease: "sine.inOut" });
+      gsap.from(card, {
+        opacity: 0, y: 18,
+        scrollTrigger: { trigger: ".hero", start: "top 70%", end: "bottom 60%", scrub: false },
+        duration: .9, delay: .15 + i*.06, ease: "power2.out"
       });
+    });
 
-      // initial
-      setActive(0);
-    })();
+    // Phone slight parallax on scroll
+    gsap.to(".phone", {
+      y: -30,
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+    });
+
+    // Section reveal: big cards, mocks, contact
+    const reveal = (selector) => {
+      gsap.utils.toArray(selector).forEach(el => {
+        gsap.from(el, {
+          y: 18,
+          opacity: 0,
+          duration: .9,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 80%" }
+        });
+      });
+    };
+    reveal(".bigCard");
+    reveal(".mock");
+    reveal(".contactCard");
+
+    // Gallery stagger
+    gsap.from(".js-shot", {
+      y: 18,
+      opacity: 0,
+      duration: .9,
+      stagger: .06,
+      ease: "power2.out",
+      scrollTrigger: { trigger: "#screens", start: "top 75%" }
+    });
+
+    // Slight scale on gallery hover (GSAP quickTo feel)
+    document.querySelectorAll(".shot").forEach(s => {
+      s.addEventListener("mouseenter", ()=> gsap.to(s, { scale: 1.02, duration: .25, ease:"power2.out" }));
+      s.addEventListener("mouseleave", ()=> gsap.to(s, { scale: 1.00, duration: .25, ease:"power2.out" }));
+    });
   </script>
 </body>
 </html>
