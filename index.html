@@ -13,395 +13,404 @@
 
   <style>
     :root{
-      --bg0:#03110d;
+      --bg0:#030f0b;
       --bg1:#071f17;
       --card:rgba(255,255,255,.06);
-      --card2:rgba(255,255,255,.08);
       --stroke:rgba(255,255,255,.10);
       --text:#e9f7f1;
-      --muted:rgba(233,247,241,.75);
+      --muted:rgba(233,247,241,.72);
       --muted2:rgba(233,247,241,.55);
       --accent:#21f3a3;
       --accent2:#18c98a;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --radius:18px;
+      --shadow: 0 24px 80px rgba(0,0,0,.50);
+      --r:18px;
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background:
         radial-gradient(900px 520px at 12% 12%, rgba(33,243,163,.20), transparent 55%),
         radial-gradient(700px 420px at 85% 18%, rgba(33,243,163,.10), transparent 60%),
         radial-gradient(900px 520px at 50% 100%, rgba(0,255,170,.08), transparent 60%),
         linear-gradient(135deg, var(--bg1), var(--bg0));
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px 16px;
+      overflow-x:hidden;
     }
 
-    a{color:inherit}
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ width:min(1120px, 100%); margin:0 auto; padding:22px 16px 60px; }
 
-    .wrap{
-      width:min(1040px, 100%);
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 12px;
+    /* Top nav */
+    .nav{
+      position:sticky; top:14px; z-index:50;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px;
       border:1px solid var(--stroke);
-      background:rgba(0,0,0,.18);
       border-radius:999px;
-      backdrop-filter: blur(10px);
+      background:rgba(0,0,0,.18);
+      backdrop-filter: blur(12px);
     }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding-left:6px;
-    }
-
-    .logoDot{
+    .brand{ display:flex; align-items:center; gap:10px; padding-left:6px; }
+    .dot{
       width:14px;height:14px;border-radius:999px;
       background: radial-gradient(circle at 30% 30%, #baffea, var(--accent));
-      box-shadow: 0 0 0 6px rgba(33,243,163,.10);
-      flex:0 0 auto;
+      box-shadow: 0 0 0 7px rgba(33,243,163,.10);
     }
-
-    .brandTitle{
+    .brand b{ font-weight:900; letter-spacing:.2px; }
+    .brand b span{ color:var(--accent); }
+    .navlinks{ display:flex; gap:12px; align-items:center; }
+    .navlinks a{
+      color:var(--muted);
       font-weight:800;
-      letter-spacing:.2px;
-      display:flex;
-      align-items:baseline;
-      gap:2px;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:10px;
+      transition:.15s;
     }
-    .brandTitle span{
-      color:var(--accent);
-      font-weight:900;
+    .navlinks a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+
+    /* Hero */
+    .hero{
+      margin-top:18px;
+      border-radius: calc(var(--r) + 6px);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 260px at 18% 10%, rgba(33,243,163,.28), transparent 60%),
+        radial-gradient(520px 260px at 85% 40%, rgba(33,243,163,.14), transparent 62%);
+      pointer-events:none;
+    }
+    .heroInner{
+      position:relative; z-index:1;
+      padding: 34px 22px 22px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:center;
+    }
+    @media (max-width: 920px){
+      .heroInner{ grid-template-columns:1fr; padding: 26px 18px 18px; }
     }
 
+    .kicker{
+      display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;
+    }
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+      display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px;
       border-radius:999px;
       border:1px solid rgba(33,243,163,.22);
       background:rgba(33,243,163,.10);
       color:#bfffe6;
       font-size:13px;
+      font-weight:800;
       white-space:nowrap;
     }
-
-    .grid{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
-    }
-
-    @media (max-width: 860px){
-      .grid{grid-template-columns:1fr}
-    }
-
-    .card{
-      border-radius: var(--radius);
-      border: 1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(420px 220px at 20% 10%, rgba(33,243,163,.22), transparent 60%);
-      pointer-events:none;
-    }
-
-    .hero{
-      padding:26px 22px 22px;
-      position:relative;
-      z-index:1;
-    }
-
-    .kicker{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-bottom:14px;
-    }
-
     h1{
       margin:0;
-      font-size: clamp(34px, 4.6vw, 54px);
-      line-height:1.05;
-      letter-spacing:-0.6px;
-      font-weight:900;
+      font-size: clamp(34px, 4.7vw, 60px);
+      line-height:1.02;
+      letter-spacing:-0.8px;
+      font-weight:950;
     }
-
-    .accent{
-      color:var(--accent);
-    }
-
-    .subtitle{
-      margin:14px 0 0;
+    .accent{ color:var(--accent); }
+    .sub{
+      margin-top:14px;
       color:var(--muted);
-      font-size: 16px;
+      font-size:16px;
       line-height:1.7;
-      max-width: 62ch;
+      max-width: 64ch;
     }
-
-    .ctaRow{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:20px;
+    .cta{
+      margin-top:18px;
+      display:flex; gap:12px; flex-wrap:wrap;
       align-items:center;
     }
-
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 16px;
-      border-radius: 12px;
-      font-weight:800;
-      text-decoration:none;
-      border: 1px solid rgba(255,255,255,.14);
+      border-radius:12px;
+      font-weight:900;
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.20);
       color: var(--text);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       backdrop-filter: blur(10px);
     }
     .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
-
     .btnPrimary{
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color:#06110d;
-      border: none;
-      box-shadow: 0 12px 30px rgba(33,243,163,.22);
+      border:none;
+      box-shadow: 0 14px 34px rgba(33,243,163,.20);
     }
-    .btnPrimary:hover{ transform: translateY(-1px); }
 
-    .btnSmallText{
-      font-size:12px;
-      color:rgba(6,17,13,.75);
-      font-weight:700;
+    /* Screenshot stack */
+    .phoneStack{
+      position:relative;
+      min-height: 420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    @media (max-width: 920px){
+      .phoneStack{ min-height: 380px; margin-top:8px; }
+    }
+    .shot{
+      width:min(260px, 70vw);
+      aspect-ratio: 9 / 19.5;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      position:absolute;
+      transform-origin: center;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+    .shot img{
+      width:100%; height:100%; object-fit:cover; display:block;
+      filter: saturate(1.05) contrast(1.03);
+    }
+    .shot:nth-child(1){ transform: translate(-62px, 20px) rotate(-8deg); opacity:.65; }
+    .shot:nth-child(2){ transform: translate(62px, 20px) rotate(8deg); opacity:.65; }
+    .shot:nth-child(3){
+      transform: translate(0, 0) rotate(0deg);
+      opacity:1;
+      border:1px solid rgba(33,243,163,.26);
+      box-shadow: 0 40px 110px rgba(0,0,0,.62);
+    }
+
+    /* Sections */
+    .section{
+      margin-top:16px;
+      border:1px solid var(--stroke);
+      border-radius: calc(var(--r) + 2px);
+      background: rgba(0,0,0,.16);
+      backdrop-filter: blur(10px);
+      padding: 18px;
+    }
+    .section h2{
+      margin:0 0 10px;
+      font-size: 16px;
+      letter-spacing:.2px;
     }
 
     .features{
       display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap:10px;
-      margin-top:18px;
     }
+    @media (max-width: 860px){ .features{ grid-template-columns:1fr; } }
 
-    @media (max-width: 520px){
-      .features{ grid-template-columns:1fr; }
-    }
-
-    .chip{
-      padding:11px 12px;
-      border-radius: 14px;
+    .feat{
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      color: rgba(233,247,241,.82);
-      font-size: 13px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      min-height: 54px;
-    }
-
-    .chip b{
-      display:block;
-      color: var(--text);
-      font-size: 13px;
-      margin-bottom:2px;
-    }
-
-    .dot{
-      width:10px;height:10px;border-radius:999px;
-      background: var(--accent);
-      margin-top:4px;
-      box-shadow: 0 0 0 6px rgba(33,243,163,.12);
-      flex:0 0 auto;
-    }
-
-    .side{
-      padding:18px;
-      position:relative;
-      z-index:1;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .mini{
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.20);
-      padding:14px 14px;
+      background: rgba(0,0,0,.18);
+      padding:14px;
+      position:relative;
+      overflow:hidden;
     }
+    .feat::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(340px 180px at 20% 0%, rgba(33,243,163,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .feat b{ display:block; font-size:14px; margin-bottom:6px; position:relative; z-index:1; }
+    .feat p{ margin:0; color:var(--muted2); font-size:13px; line-height:1.6; position:relative; z-index:1; }
 
-    .mini h2{
-      margin:0 0 6px;
-      font-size: 14px;
-      letter-spacing:.2px;
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
     }
-    .mini p{
-      margin:0;
-      color: var(--muted2);
-      font-size: 13px;
-      line-height:1.6;
-    }
+    @media (max-width: 860px){ .twoCol{ grid-template-columns:1fr; } }
 
-    .link{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-top:10px;
-      font-weight:800;
-      text-decoration:none;
-      color: var(--accent);
+    /* Animated reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .55s ease, transform .55s ease;
     }
-
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin:10px 0;
+    .reveal.on{
+      opacity:1;
+      transform: translateY(0);
     }
 
     footer{
       margin-top:16px;
+      color: rgba(233,247,241,.55);
+      font-size: 12px;
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       align-items:center;
       justify-content:space-between;
-      color: rgba(233,247,241,.55);
-      font-size: 12px;
       padding: 0 6px;
     }
-    footer a{ color: rgba(233,247,241,.70); text-decoration:none; }
-    footer a:hover{ text-decoration:underline; }
 
-    /* Subtle animated glow */
+    /* Floating glow */
     .glow{
       position:absolute;
-      inset:-180px -140px auto auto;
-      width:380px; height:380px;
-      background: radial-gradient(circle at 30% 30%, rgba(33,243,163,.32), transparent 60%);
+      right:-160px; top:-160px;
+      width:420px; height:420px;
+      background: radial-gradient(circle at 30% 30%, rgba(33,243,163,.35), transparent 60%);
       filter: blur(2px);
-      opacity:.65;
-      transform: translate3d(0,0,0);
-      animation: float 6.5s ease-in-out infinite;
+      opacity:.60;
+      animation: float 7s ease-in-out infinite;
       pointer-events:none;
-      z-index:0;
     }
-
     @keyframes float{
       0%,100%{ transform: translate(0,0) scale(1); }
-      50%{ transform: translate(-16px, 10px) scale(1.03); }
+      50%{ transform: translate(-18px, 12px) scale(1.03); }
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="topbar">
+    <div class="nav">
       <div class="brand">
-        <div class="logoDot"></div>
-        <div class="brandTitle">PronoFoot<span>+</span></div>
+        <div class="dot"></div>
+        <b>PronoFoot<span>+</span></b>
       </div>
-      <div class="pill">Official developer website</div>
+      <div class="navlinks">
+        <a href="#features">Features</a>
+        <a href="#screens">Screens</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
 
-    <div class="grid">
-      <section class="card">
-        <div class="glow"></div>
-        <div class="hero">
+    <section class="hero reveal">
+      <div class="glow"></div>
+      <div class="heroInner">
+        <div>
           <div class="kicker">
-            <span class="pill">Data-driven insights</span>
-            <span class="pill">Curated matches</span>
-            <span class="pill">Modern UX</span>
+            <span class="pill">Data-driven</span>
+            <span class="pill">Curated</span>
+            <span class="pill">Premium UX</span>
           </div>
 
-          <h1>Football intelligence,<br><span class="accent">built with precision</span>.</h1>
-          <p class="subtitle">
-            PronoFoot+ delivers structured match insights, curated selections, and a premium experience designed to help you explore
-            fixtures with clarity and confidence — all in one place.
+          <h1>Football insights,<br><span class="accent">built with precision</span>.</h1>
+          <p class="sub">
+            Structured match analysis, curated selections, and smart planning tools — designed to help you explore every fixture
+            with clarity and confidence, all in one place.
           </p>
 
-          <div class="ctaRow">
+          <div class="cta">
             <a class="btn btnPrimary" target="_blank"
                href="https://play.google.com/store/apps/details?id=com.pronofoot.plus">
-              Download on Google Play
-              <span class="btnSmallText">→</span>
+              Download on Google Play →
             </a>
-
-            <a class="btn" target="_blank" href="https://pronofootplus.github.io/app-ads.txt">
-              app-ads.txt
-              <span class="btnSmallText">↗</span>
-            </a>
-          </div>
-
-          <div class="features">
-            <div class="chip"><span class="dot"></span><div><b>Advanced match analysis</b><span style="color:var(--muted2)">Key trends, form and context.</span></div></div>
-            <div class="chip"><span class="dot"></span><div><b>Expert-style selection</b><span style="color:var(--muted2)">Carefully picked fixtures.</span></div></div>
-            <div class="chip"><span class="dot"></span><div><b>Fast & clean experience</b><span style="color:var(--muted2)">Designed for performance.</span></div></div>
+            <a class="btn" target="_blank" href="/app-ads.txt">View app-ads.txt ↗</a>
           </div>
         </div>
-      </section>
 
-      <aside class="card">
-        <div class="side">
-          <div class="mini">
-            <h2>About</h2>
-            <p>
-              PronoFoot+ is a football insights app focused on clarity, structure and a premium reading experience.
-              Built for fans who want more than basic tips.
-            </p>
+        <!-- Replace assets/s*.png with your real screenshots -->
+        <div class="phoneStack" id="screens" aria-label="App screenshots preview">
+          <div class="shot" title="Screenshot">
+            <img src="assets/01.png" alt="PronoFoot+ screenshot 1" />
           </div>
-
-          <div class="mini">
-            <h2>Contact</h2>
-            <p>
-              For support or inquiries, contact us at:<br>
-              <a class="link" href="mailto:pronofootplus.app@gmail.com">pronofootplus.app@gmail.com</a>
-            </p>
+          <div class="shot" title="Screenshot">
+            <img src="assets/03.png" alt="PronoFoot+ screenshot 2" />
           </div>
-
-          <div class="mini">
-            <h2>Links</h2>
-            <div class="divider"></div>
-            <a class="link" target="_blank" href="https://play.google.com/store/apps/details?id=com.pronofoot.plus">Google Play listing</a>
-            <a class="link" target="_blank" href="https://pronofootplus.github.io/app-ads.txt">app-ads.txt</a>
+          <div class="shot" title="Screenshot">
+            <img src="assets/05.png" alt="PronoFoot+ screenshot 3" />
           </div>
         </div>
-      </aside>
-    </div>
+      </div>
+    </section>
+
+    <section id="features" class="section reveal">
+      <h2>Highlights</h2>
+      <div class="features">
+        <div class="feat">
+          <b>Advanced Match Analysis</b>
+          <p>Key trends, form, context, and structured insights in a clean reading experience.</p>
+        </div>
+        <div class="feat">
+          <b>Expert-Curated Selections</b>
+          <p>Carefully selected fixtures to help you focus on the most relevant games.</p>
+        </div>
+        <div class="feat">
+          <b>Smart Planning Tools</b>
+          <p>Organize your picks and explore outcomes with an intuitive, premium UX.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <h2>More</h2>
+      <div class="twoCol">
+        <div class="feat">
+          <b>Performance-first</b>
+          <p>Designed for fast navigation and smooth content consumption.</p>
+        </div>
+        <div class="feat">
+          <b>Official links</b>
+          <p>
+            <a class="pill" href="https://play.google.com/store/apps/details?id=com.pronofoot.plus" target="_blank">Google Play</a>
+            <a class="pill" href="/app-ads.txt" target="_blank">app-ads.txt</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section reveal">
+      <h2>Contact</h2>
+      <p style="margin:0; color:var(--muted); line-height:1.7;">
+        For support or inquiries:<br>
+        <a href="mailto:pronofootplus.app@gmail.com" class="pill" style="margin-top:10px; display:inline-flex;">
+          pronofootplus.app@gmail.com
+        </a>
+      </p>
+    </section>
 
     <footer>
       <div>© 2026 PronoFoot+. All rights reserved.</div>
       <div>
-        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.pronofoot.plus">Play Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.pronofoot.plus" target="_blank">Play Store</a>
         &nbsp;•&nbsp;
-        <a target="_blank" href="https://pronofootplus.github.io/app-ads.txt">app-ads.txt</a>
+        <a href="/app-ads.txt" target="_blank">app-ads.txt</a>
       </div>
     </footer>
   </div>
+
+  <script>
+    // Scroll reveal (lightweight, no libraries)
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.classList.add('on');
+      }
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+
+    // Parallax tilt on screenshots (subtle)
+    const stack = document.querySelector('.phoneStack');
+    if (stack) {
+      stack.addEventListener('mousemove', (ev) => {
+        const r = stack.getBoundingClientRect();
+        const x = (ev.clientX - r.left) / r.width - 0.5;
+        const y = (ev.clientY - r.top) / r.height - 0.5;
+        stack.style.transform = `rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
+      });
+      stack.addEventListener('mouseleave', () => {
+        stack.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+    }
+  </script>
 </body>
 </html>
