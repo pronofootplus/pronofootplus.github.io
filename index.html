@@ -4,28 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- ✅ Garde la vérification -->
+  <!-- ✅ IMPORTANT: garder la vérification -->
   <meta name="google-site-verification" content="7cEFltr7OFNyrphsOdiHcveijQlPrvOThkUcuyXSbeg" />
 
   <title>PronoFoot+ — Expert Football Picks</title>
-  <meta name="description" content="PronoFoot+ — Curated matches, expert picks, smart ticket planning and premium insights." />
-  <meta name="theme-color" content="#050f0e" />
+  <meta name="description" content="PronoFoot+ — Curated matches, expert picks, advanced insights, and smart bet planning in a premium Android experience." />
+  <meta name="theme-color" content="#071312" />
 
   <style>
     :root{
-      --bg0:#040a09;
-      --bg1:#061a16;
+      --bg0:#061110;
+      --bg1:#081a17;
       --card: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.12);
-      --text: rgba(245,255,252,.94);
-      --muted: rgba(245,255,252,.70);
+      --line: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+
       --accent:#25e6b1;
       --accent2:#19c9ff;
-      --accent3:#a855f7;
-      --shadow: 0 30px 120px rgba(0,0,0,.62);
-      --shadow2: 0 16px 60px rgba(0,0,0,.35);
-      --r: 22px;
-      --max: 1180px;
+
+      --r: 18px;
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+
+      --max: 1120px;
     }
 
     *{ box-sizing:border-box; }
@@ -35,9 +36,8 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
       background:
-        radial-gradient(1100px 700px at 15% 10%, rgba(37,230,177,.18), transparent 60%),
-        radial-gradient(1000px 700px at 80% 18%, rgba(25,201,255,.14), transparent 60%),
-        radial-gradient(900px 800px at 55% 95%, rgba(168,85,247,.10), transparent 60%),
+        radial-gradient(900px 500px at 18% 12%, rgba(37,230,177,.14), transparent 60%),
+        radial-gradient(900px 500px at 82% 18%, rgba(25,201,255,.10), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
@@ -45,358 +45,303 @@
     a{ color:inherit; text-decoration:none; }
     .container{ width:min(var(--max), 92vw); margin:0 auto; }
 
-    /* ===== Background (Dipla-like) ===== */
+    /* Subtle grid + noise (premium feel, no heavy anim) */
     .grid{
-      position:fixed; inset:-70px; z-index:0; pointer-events:none; opacity:.10;
+      position:fixed; inset:-60px; pointer-events:none; z-index:0; opacity:.09;
       background:
         linear-gradient(to right, rgba(255,255,255,.10) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.10) 1px, transparent 1px);
-      background-size: 70px 70px;
-      mask-image: radial-gradient(circle at 40% 10%, rgba(0,0,0,1), rgba(0,0,0,.28) 55%, rgba(0,0,0,0) 78%);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 40% 12%, rgba(0,0,0,1), rgba(0,0,0,.3) 55%, rgba(0,0,0,0) 78%);
     }
     .noise{
-      position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.06;
+      position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.05;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
     }
-    .blobs{ position:fixed; inset:-30vh -30vw; z-index:0; pointer-events:none; filter: blur(26px); opacity:.78; }
-    .blob{
-      position:absolute; width: 56vmax; height: 56vmax; border-radius:999px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.34), transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(37,230,177,.22), transparent 62%);
-      mix-blend-mode: screen;
-      transform: translate3d(0,0,0);
-    }
-    .blob.b2{
-      width: 48vmax; height: 48vmax; left: 56%; top: 0%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.24), transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(25,201,255,.18), transparent 62%);
-    }
-    .blob.b3{
-      width: 46vmax; height: 46vmax; left: 14%; top: 58%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.20), transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(168,85,247,.16), transparent 62%);
-    }
 
-    /* ===== Top Nav ===== */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(16px);
-      background: rgba(3,10,9,.62);
-      border-bottom:1px solid var(--line);
+      background: rgba(6,17,16,.62);
+      border-bottom: 1px solid var(--line);
     }
-    .nav{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:14px 0; }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight:950; letter-spacing:.2px; user-select:none; }
-    .logoDot{
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 950; letter-spacing:.2px;
+    }
+    .dot{
       width:12px; height:12px; border-radius:999px;
       background: radial-gradient(circle at 30% 30%, #fff, var(--accent));
-      box-shadow: 0 0 22px rgba(37,230,177,.55);
+      box-shadow: 0 0 18px rgba(37,230,177,.55);
     }
-    .navlinks{ display:flex; gap:8px; flex-wrap:wrap; color:var(--muted); font-weight:900; font-size:13px; }
-    .navlinks a{ padding:8px 10px; border-radius:12px; border:1px solid transparent; }
-    .navlinks a:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10); color: var(--text); }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px; border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
+    .navlinks{
+      display:flex; gap:10px; flex-wrap:wrap;
+      color: var(--muted); font-weight: 850; font-size: 13px;
+    }
+    .navlinks a{
+      padding: 8px 10px; border-radius: 12px; border: 1px solid transparent;
+    }
+    .navlinks a:hover{
       background: rgba(255,255,255,.06);
-      font-weight:950; font-size:13px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
-      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      border-color: rgba(255,255,255,.08);
+      color: var(--text);
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-weight: 950;
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
       white-space:nowrap;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22); box-shadow: 0 18px 46px rgba(0,0,0,.28); }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22); }
     .btn.primary{
       border-color: rgba(37,230,177,.35);
-      background: linear-gradient(135deg, rgba(37,230,177,.22), rgba(25,201,255,.14));
-      box-shadow: 0 18px 50px rgba(37,230,177,.18);
+      background: linear-gradient(135deg, rgba(37,230,177,.22), rgba(25,201,255,.12));
+      box-shadow: 0 18px 46px rgba(37,230,177,.12);
     }
 
     main{ position:relative; z-index:10; }
 
-    /* ===== Hero (Dipla-like : full + floating cards) ===== */
-    .hero{
-      position:relative;
-      min-height: calc(100vh - 62px);
-      display:flex; align-items:center;
-      padding: 56px 0 30px;
-    }
+    /* HERO */
+    .hero{ padding: 60px 0 26px; }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 28px;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 26px;
       align-items:center;
     }
-    @media (max-width: 980px){ .heroGrid{ grid-template-columns: 1fr; } }
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+    }
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px; border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       color: var(--muted);
-      font-weight:900; font-size:13px;
-      width: fit-content;
+      font-weight: 900; font-size: 13px;
     }
-    .pulse{
+    .spark{
       width:10px; height:10px; border-radius:999px;
       background: var(--accent2);
-      box-shadow: 0 0 18px rgba(25,201,255,.55);
+      box-shadow: 0 0 16px rgba(25,201,255,.55);
     }
 
     h1{
       margin: 14px 0 10px;
-      font-size: clamp(38px, 5.3vw, 72px);
-      line-height:1.02;
+      font-size: clamp(38px, 5.2vw, 68px);
+      line-height: 1.03;
       letter-spacing:-1px;
     }
     .grad{
       background: linear-gradient(90deg, #fff, rgba(255,255,255,.92), var(--accent));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    .sub{ margin: 0 0 22px; color: var(--muted); line-height:1.75; font-size:16px; max-width:66ch; }
-    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 12px; }
+    .sub{
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 16px;
+      max-width: 68ch;
+    }
+    .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
 
-    /* Floating cards */
-    .floatZone{ position:relative; height: 620px; max-height: 70vh; min-height: 520px; }
-    @media (max-width: 980px){ .floatZone{ height: 560px; max-height: none; } }
-
-    .phone{
-      position:absolute; inset: 0;
-      margin:auto;
-      width: min(360px, 78vw);
-      aspect-ratio: 9/18;
-      border-radius: 30px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.04);
+    .heroCard{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 22px;
+      padding: 14px;
       box-shadow: var(--shadow);
-      transform-style: preserve-3d;
+    }
+    .phone{
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
       cursor:pointer;
     }
-    .phone img{ width:100%; height:100%; object-fit: cover; display:block; transform: scale(1.02); }
-    .shine{
-      position:absolute; inset:-40%;
-      background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.14) 50%, transparent 65%);
-      transform: translateX(-40%) rotate(12deg);
-      pointer-events:none;
-      mix-blend-mode: overlay;
-    }
-
-    .fCard{
-      position:absolute;
-      width: 250px;
-      max-width: 70vw;
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(10,24,20,.55);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow2);
-      padding: 14px;
-      transform-style: preserve-3d;
-    }
-    .fTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
-    .badge{
-      padding: 6px 10px; border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+    .phone img{ width:100%; display:block; }
+    .hint{
+      margin: 10px 0 0;
       color: var(--muted);
-      font-weight:950; font-size:11px;
-      white-space:nowrap;
+      font-size: 12px;
+      text-align:center;
     }
-    .fTitle{ font-weight: 950; font-size: 13px; }
-    .fDesc{ margin-top:8px; color: var(--muted); font-size: 12px; line-height: 1.55; }
 
-    .f1{ left: 2%; top: 8%; }
-    .f2{ right: 4%; top: 18%; }
-    .f3{ left: 6%; bottom: 10%; }
-    .f4{ right: 2%; bottom: 14%; }
-
-    /* ===== Sections ===== */
-    section{ padding: 76px 0; }
-    .sectionTitle{
-      display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap;
+    /* SECTIONS */
+    section{ padding: 56px 0; }
+    .sectionTop{
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      align-items:flex-end;
       margin-bottom: 18px;
     }
-    .sectionTitle h2{
-      margin:0; font-size: clamp(22px, 3.2vw, 40px); letter-spacing:-.4px;
+    .sectionTop h2{
+      margin:0;
+      font-size: clamp(22px, 3vw, 36px);
+      letter-spacing:-.4px;
     }
-    .sectionTitle p{ margin:0; color: var(--muted); font-size: 14px; line-height: 1.75; max-width: 68ch; }
+    .sectionTop p{
+      margin:0;
+      max-width: 70ch;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
+      margin: 26px 0;
+    }
 
-    .divider{ height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); margin: 28px 0; }
-
-    /* Feature row */
-    .featuresGrid{
+    /* FEATURES GRID */
+    .features{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items:stretch;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
     }
-    @media (max-width: 980px){ .featuresGrid{ grid-template-columns: 1fr; } }
-
-    .bigCard{
-      border:1px solid rgba(255,255,255,.12);
+    @media (max-width: 980px){ .features{ grid-template-columns: 1fr; } }
+    .fcard{
+      border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
-      border-radius: 26px;
-      padding: 18px;
-      box-shadow: var(--shadow2);
-      position:relative;
-      overflow:hidden;
-      min-height: 360px;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.28);
     }
-    .bigCard:before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:
-        radial-gradient(520px 220px at 20% 10%, rgba(37,230,177,.16), transparent 62%),
-        radial-gradient(520px 220px at 70% 90%, rgba(25,201,255,.12), transparent 62%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .bigCard h3{ margin:0 0 8px; font-size: 18px; position:relative; }
-    .bigCard p{ margin:0 0 14px; color: var(--muted); line-height: 1.75; font-size: 13px; position:relative; }
-
-    .miniList{ display:grid; gap: 10px; position:relative; }
-    .miniItem{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .miniIcon{
-      width: 36px; height: 36px; border-radius: 14px;
+    .ficon{
+      width: 42px; height: 42px;
+      border-radius: 14px;
       display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
-      flex: 0 0 auto;
-      font-size: 16px;
+      margin-bottom: 10px;
+      font-size: 18px;
     }
-    .miniItem b{ display:block; font-size: 13px; }
-    .miniItem span{ display:block; color: var(--muted); font-size: 12px; line-height:1.6; margin-top: 2px; }
+    .fcard h3{ margin: 0 0 6px; font-size: 16px; }
+    .fcard p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.7; }
 
-    .mock{
-      position:relative;
-      border-radius: 26px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      height: 100%;
-      min-height: 360px;
-      cursor:pointer;
-    }
-    .mock img{ width:100%; height:100%; object-fit: cover; display:block; transform: scale(1.03); }
-
-    /* Screens gallery */
-    .gallery{
+    /* SCREENSHOTS (clean, organized) */
+    .shots{
       display:grid;
       grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 14px;
+      gap: 12px;
     }
-    @media (max-width: 980px){ .gallery{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-    @media (max-width: 520px){ .gallery{ grid-template-columns: 1fr; } }
+    @media (max-width: 980px){ .shots{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 520px){ .shots{ grid-template-columns: 1fr; } }
 
     .shot{
-      border-radius: 22px;
+      border-radius: 20px;
+      overflow:hidden;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
-      overflow:hidden;
-      box-shadow: var(--shadow2);
+      box-shadow: 0 16px 46px rgba(0,0,0,.30);
       cursor:pointer;
       position:relative;
     }
-    .shot img{ width:100%; height: 360px; object-fit: cover; display:block; }
+    .shot img{
+      width:100%;
+      height: 360px;
+      object-fit: cover;
+      display:block;
+    }
     @media (max-width: 980px){ .shot img{ height: 320px; } }
     @media (max-width: 520px){ .shot img{ height:auto; } }
-    .cap{
-      position:absolute; left:10px; right:10px; bottom:10px;
-      padding: 10px 12px; border-radius: 14px;
-      background: rgba(3,10,9,.74);
+
+    .label{
+      position:absolute;
+      left:10px; right:10px; bottom:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(6,17,16,.70);
       border: 1px solid rgba(255,255,255,.10);
       backdrop-filter: blur(10px);
-      color: rgba(255,255,255,.92);
-      font-weight: 950; font-size: 12px;
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-    }
-    .tag{
-      padding: 6px 10px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      font-weight: 950; font-size: 11px;
-      white-space:nowrap;
-    }
-
-    /* Contact + footer */
-    .contactCard{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 26px;
-      padding: 18px;
-      box-shadow: var(--shadow2);
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 14px;
-      flex-wrap:wrap;
-      position:relative;
-      overflow:hidden;
+      gap:10px;
+      font-weight: 950;
+      font-size: 12px;
     }
-    .contactCard:before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:
-        radial-gradient(520px 220px at 20% 10%, rgba(37,230,177,.16), transparent 62%),
-        radial-gradient(520px 220px at 70% 90%, rgba(25,201,255,.12), transparent 62%);
-      opacity:.85;
-      pointer-events:none;
+    .tag{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-weight: 950;
+      font-size: 11px;
+      white-space:nowrap;
     }
-    .contactCard b, .contactCard p, .contactRight{ position:relative; }
-    .contactCard b{ font-size:16px; }
-    .contactCard p{ margin:6px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; }
-    .contactRight{ display:flex; gap:10px; flex-wrap:wrap; }
 
+    /* CONTACT */
+    .contact{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px; flex-wrap:wrap;
+    }
+    .contact b{ font-size: 16px; }
+    .contact p{ margin:6px 0 0; color: var(--muted); font-size: 13px; line-height:1.7; }
+
+    /* FOOTER */
     footer{
-      padding: 26px 0 44px;
+      padding: 24px 0 44px;
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 13px;
     }
-    .fgrid{ display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:flex-start; }
-    .smallLinks{ display:flex; gap:10px; flex-wrap:wrap; }
-    .smallLinks a{
+    .foot{
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      align-items:flex-start;
+    }
+    .footLinks{ display:flex; gap:10px; flex-wrap:wrap; }
+    .footLinks a{
       padding: 8px 10px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
-    .smallLinks a:hover{ background: rgba(255,255,255,.08); }
+    .footLinks a:hover{ background: rgba(255,255,255,.08); }
 
-    /* Lightbox */
+    /* LIGHTBOX */
     .lb{
-      position:fixed; inset:0; z-index:999;
-      display:none; align-items:center; justify-content:center;
+      position:fixed; inset:0;
+      display:none;
+      align-items:center; justify-content:center;
       background: rgba(0,0,0,.74);
       backdrop-filter: blur(10px);
+      z-index:999;
       padding: 18px;
     }
     .lb.open{ display:flex; }
     .lbCard{
       width: min(980px, 95vw);
-      border-radius: 26px;
+      border-radius: 22px;
       border: 1px solid rgba(255,255,255,.16);
-      background: rgba(8,20,18,.70);
+      background: rgba(8,20,18,.72);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
     .lbTop{
       display:flex; justify-content:space-between; align-items:center;
-      padding: 12px 12px;
+      padding: 12px;
       border-bottom: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
     }
     .lbTop b{ font-size: 13px; }
     .lbClose{
@@ -408,27 +353,26 @@
       font-weight: 950;
       color: rgba(255,255,255,.92);
     }
-    .lbImgWrap{ display:grid; place-items:center; padding:16px; }
+    .lbBody{
+      padding: 14px;
+      display:grid;
+      place-items:center;
+    }
     .lbImg{
-      width: min(820px, 92vw);
-      max-height: 80vh;
+      width: min(860px, 92vw);
+      max-height: 82vh;
       object-fit: contain;
-      border-radius: 18px;
+      border-radius: 16px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.25);
     }
 
-    /* Smooth anchor */
-    html{ scroll-behavior:smooth; }
+    /* Smooth scrolling */
+    html{ scroll-behavior: smooth; }
   </style>
 </head>
 
 <body>
-  <div class="blobs" aria-hidden="true">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-  </div>
   <div class="grid" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
 
@@ -436,12 +380,11 @@
     <div class="container">
       <div class="nav">
         <div class="brand">
-          <span class="logoDot"></span>
+          <span class="dot"></span>
           <span>PronoFoot<span style="color:var(--accent)">+</span></span>
         </div>
 
         <nav class="navlinks" aria-label="Navigation">
-          <a href="#experience">Experience</a>
           <a href="#features">Features</a>
           <a href="#screens">Screens</a>
           <a href="#contact">Contact</a>
@@ -461,182 +404,80 @@
       <div class="container">
         <div class="heroGrid">
           <div>
-            <div class="pill">
-              <span class="pulse"></span>
-              <span>Data-backed • Expert-curated • Premium UX</span>
-            </div>
+            <div class="pill"><span class="spark"></span><span>Curated • Expert • Premium UX</span></div>
 
-            <h1>
-              Live football picks with a
-              <span class="grad">premium experience</span>
-            </h1>
+            <h1>Bet smarter with <span class="grad">PronoFoot+</span></h1>
 
             <p class="sub">
-              PronoFoot+ is built like a product: curated matches, expert picks, smart ticket planning,
-              and advanced insights — in a clean, fast, Dribbble-grade UI.
+              A clean and premium football companion: curated matches, expert picks, advanced insights,
+              and smart bet planning — designed for fast reading and confident decisions.
             </p>
 
             <div class="ctaRow">
-              <a class="btn primary" href="#experience">Explore animations</a>
+              <a class="btn primary" href="#features">See features</a>
+              <a class="btn" href="#screens">Screens gallery</a>
               <a class="btn" href="#contact">Contact</a>
-              <a class="btn" href="#screens">Gallery</a>
-            </div>
-
-            <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-weight:900; font-size:13px;">
-              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Curated Matches</span>
-              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Expert Picks</span>
-              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Smart Tickets</span>
-              <span style="padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);">Insights</span>
-            </div>
-          </div>
-
-          <div class="floatZone" id="floatZone">
-            <div class="phone js-tilt" data-lightbox-src="assets/07.png" data-lightbox-title="PronoFoot+ — Global League Coverage">
-              <img src="assets/07.png" alt="PronoFoot+ screenshot" />
-              <div class="shine" aria-hidden="true"></div>
-            </div>
-
-            <div class="fCard f1 js-float">
-              <div class="fTop">
-                <div class="fTitle">Top curated matches</div>
-                <div class="badge">+ New</div>
-              </div>
-              <div class="fDesc">A focused selection — no endless scrolling. Just the matches that matter.</div>
-            </div>
-
-            <div class="fCard f2 js-float">
-              <div class="fTop">
-                <div class="fTitle">Expert picks</div>
-                <div class="badge">Premium UX</div>
-              </div>
-              <div class="fDesc">Readable reasoning, consistent format, confidence cues.</div>
-            </div>
-
-            <div class="fCard f3 js-float">
-              <div class="fTop">
-                <div class="fTitle">Smart bet planning</div>
-                <div class="badge">Ticket</div>
-              </div>
-              <div class="fDesc">Odds, stake, potential returns — clean recap like a real product.</div>
-            </div>
-
-            <div class="fCard f4 js-float">
-              <div class="fTop">
-                <div class="fTitle">Advanced insights</div>
-                <div class="badge">Data</div>
-              </div>
-              <div class="fDesc">Trends, streaks & context — designed for fast decisions.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE (scroll animations) -->
-    <section id="experience">
-      <div class="container">
-        <div class="sectionTitle">
-          <div>
-            <h2>Dipla-style scroll experience</h2>
-            <p>Parallax, stagger reveals, floating elements, and sticky mock screens — smooth and premium.</p>
-          </div>
-        </div>
-
-        <div class="featuresGrid">
-          <div class="bigCard" id="expCopy">
-            <h3>Everything you need, one place</h3>
-            <p>We keep the UI minimal and structured so you can understand the pick fast — and act fast.</p>
-
-            <div class="miniList">
-              <div class="miniItem">
-                <div class="miniIcon">🏆</div>
-                <div><b>Curated matches</b><span>Selected with caution — not random volume.</span></div>
-              </div>
-              <div class="miniItem">
-                <div class="miniIcon">🧠</div>
-                <div><b>Expert analysis</b><span>Clean reasoning, consistent templates, premium readability.</span></div>
-              </div>
-              <div class="miniItem">
-                <div class="miniIcon">🎟️</div>
-                <div><b>Smart tickets</b><span>Plan your bet and preview potential returns.</span></div>
-              </div>
             </div>
 
             <div class="divider"></div>
 
-            <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.7;">
-              Scroll down — screens and blocks animate progressively (like Dipla).
-            </p>
+            <div class="features" style="margin-top:10px;">
+              <div class="fcard">
+                <div class="ficon">🏆</div>
+                <h3>Top curated matches</h3>
+                <p>Focus on high-value fixtures instead of endless noisy lists.</p>
+              </div>
+              <div class="fcard">
+                <div class="ficon">🧠</div>
+                <h3>Picked by experts</h3>
+                <p>Clear picks with structured insights and consistent formatting.</p>
+              </div>
+              <div class="fcard">
+                <div class="ficon">🎟️</div>
+                <h3>Smart bet planning</h3>
+                <p>Ticket planning with a clean recap: odds, stakes, and expected outcomes.</p>
+              </div>
+            </div>
           </div>
 
-          <div class="mock js-tilt" data-lightbox-src="assets/02.png" data-lightbox-title="Picked By Experts">
-            <img src="assets/02.png" alt="Picked By Experts" />
+          <div class="heroCard">
+            <div class="phone" data-lightbox-src="assets/07.png" data-lightbox-title="Global League Coverage">
+              <img src="assets/07.png" alt="PronoFoot+ screenshot" />
+            </div>
+            <div class="hint">Click to open full size</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- FEATURES -->
+    <!-- FEATURES (more detailed) -->
     <section id="features">
       <div class="container">
-        <div class="sectionTitle">
+        <div class="sectionTop">
           <div>
-            <h2>Features built with discipline</h2>
-            <p>Premium UI + product thinking. Animations are subtle, not “TikTok flashy”.</p>
+            <h2>Simple. Clean. Premium.</h2>
+            <p>
+              Same vibe as high-end landing pages: strong spacing, clear hierarchy, minimal noise.
+              No heavy animations — just a polished presentation.
+            </p>
           </div>
         </div>
 
-        <div class="featuresGrid">
-          <div class="mock js-tilt" data-lightbox-src="assets/03.png" data-lightbox-title="Smart Bet Planning">
-            <img src="assets/03.png" alt="Smart Bet Planning" />
+        <div class="features">
+          <div class="fcard">
+            <div class="ficon">📈</div>
+            <h3>Advanced match insights</h3>
+            <p>Trends, context, and readable breakdowns — designed for quick decisions.</p>
           </div>
-
-          <div class="bigCard">
-            <h3>Smart Bet Planning</h3>
-            <p>A clean ticket builder so the user can manage their bet logically — not emotionally.</p>
-
-            <div class="miniList">
-              <div class="miniItem">
-                <div class="miniIcon">📌</div>
-                <div><b>Stake clarity</b><span>Simple structure, no clutter.</span></div>
-              </div>
-              <div class="miniItem">
-                <div class="miniIcon">📈</div>
-                <div><b>Potential returns</b><span>Preview outcomes in a premium layout.</span></div>
-              </div>
-              <div class="miniItem">
-                <div class="miniIcon">✨</div>
-                <div><b>Modern UI motion</b><span>Stagger reveal + parallax for “product-grade” feel.</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="featuresGrid">
-          <div class="bigCard">
+          <div class="fcard">
+            <div class="ficon">🌍</div>
             <h3>Global coverage</h3>
-            <p>Major competitions, consistent visual language, and easy navigation.</p>
-
-            <div class="miniList">
-              <div class="miniItem">
-                <div class="miniIcon">🌍</div>
-                <div><b>Worldwide leagues</b><span>Follow competitions across the globe.</span></div>
-              </div>
-              <div class="miniItem">
-                <div class="miniIcon">📊</div>
-                <div><b>Detailed standings</b><span>Readable tables in a clean layout.</span></div>
-              </div>
-              <div class="miniItem">
-                <div class="miniIcon">⚡</div>
-                <div><b>Fast navigation</b><span>Designed for quick browsing.</span></div>
-              </div>
-            </div>
+            <p>Major leagues & competitions presented with a consistent visual language.</p>
           </div>
-
-          <div class="mock js-tilt" data-lightbox-src="assets/08.png" data-lightbox-title="Complete League Standings">
-            <img src="assets/08.png" alt="Complete League Standings" />
+          <div class="fcard">
+            <div class="ficon">✨</div>
+            <h3>Premium UX</h3>
+            <p>Modern typography, clean cards, and a “product-grade” experience.</p>
           </div>
         </div>
       </div>
@@ -645,52 +486,52 @@
     <!-- SCREENS -->
     <section id="screens">
       <div class="container">
-        <div class="sectionTitle">
+        <div class="sectionTop">
           <div>
             <h2>Screens gallery</h2>
-            <p>Click any screen to open full size (lightbox). Smooth entrance animations included.</p>
+            <p>Organized and readable. Click any screenshot to open it in full size.</p>
           </div>
         </div>
 
-        <div class="gallery">
-          <div class="shot js-shot" data-lightbox-src="assets/01.png" data-lightbox-title="Top Curated Matches">
+        <div class="shots">
+          <div class="shot" data-lightbox-src="assets/01.png" data-lightbox-title="Top Curated Matches">
             <img src="assets/01.png" alt="Top Curated Matches" />
-            <div class="cap"><span>Top Curated Matches</span><span class="tag">Curated</span></div>
+            <div class="label"><span>Top Curated Matches</span><span class="tag">Curated</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/02.png" data-lightbox-title="Picked By Experts">
+          <div class="shot" data-lightbox-src="assets/02.png" data-lightbox-title="Picked By Experts">
             <img src="assets/02.png" alt="Picked By Experts" />
-            <div class="cap"><span>Picked By Experts</span><span class="tag">Expert</span></div>
+            <div class="label"><span>Picked By Experts</span><span class="tag">Expert</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/03.png" data-lightbox-title="Smart Bet Planning">
+          <div class="shot" data-lightbox-src="assets/03.png" data-lightbox-title="Smart Bet Planning">
             <img src="assets/03.png" alt="Smart Bet Planning" />
-            <div class="cap"><span>Smart Bet Planning</span><span class="tag">Tickets</span></div>
+            <div class="label"><span>Smart Bet Planning</span><span class="tag">Tickets</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/04.png" data-lightbox-title="Bet With Strategy">
+          <div class="shot" data-lightbox-src="assets/04.png" data-lightbox-title="Bet With Strategy">
             <img src="assets/04.png" alt="Bet With Strategy" />
-            <div class="cap"><span>Bet With Strategy</span><span class="tag">Strategy</span></div>
+            <div class="label"><span>Bet With Strategy</span><span class="tag">Strategy</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/05.png" data-lightbox-title="Data Backed Selections">
+          <div class="shot" data-lightbox-src="assets/05.png" data-lightbox-title="Data Backed Selections">
             <img src="assets/05.png" alt="Data Backed Selections" />
-            <div class="cap"><span>Data Backed Selections</span><span class="tag">Data</span></div>
+            <div class="label"><span>Data Backed Selections</span><span class="tag">Data</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/06.png" data-lightbox-title="Advanced Match Insights">
+          <div class="shot" data-lightbox-src="assets/06.png" data-lightbox-title="Advanced Match Insights">
             <img src="assets/06.png" alt="Advanced Match Insights" />
-            <div class="cap"><span>Advanced Match Insights</span><span class="tag">Insights</span></div>
+            <div class="label"><span>Advanced Match Insights</span><span class="tag">Insights</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/07.png" data-lightbox-title="Global League Coverage">
+          <div class="shot" data-lightbox-src="assets/07.png" data-lightbox-title="Global League Coverage">
             <img src="assets/07.png" alt="Global League Coverage" />
-            <div class="cap"><span>Global League Coverage</span><span class="tag">Coverage</span></div>
+            <div class="label"><span>Global League Coverage</span><span class="tag">Coverage</span></div>
           </div>
 
-          <div class="shot js-shot" data-lightbox-src="assets/08.png" data-lightbox-title="Complete League Standings">
+          <div class="shot" data-lightbox-src="assets/08.png" data-lightbox-title="Complete League Standings">
             <img src="assets/08.png" alt="Complete League Standings" />
-            <div class="cap"><span>Complete League Standings</span><span class="tag">Standings</span></div>
+            <div class="label"><span>Complete League Standings</span><span class="tag">Standings</span></div>
           </div>
         </div>
       </div>
@@ -699,21 +540,21 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="container">
-        <div class="sectionTitle">
+        <div class="sectionTop">
           <div>
             <h2>Contact</h2>
-            <p>Support, partnerships, business inquiries.</p>
+            <p>Support, partnerships, or business inquiries.</p>
           </div>
         </div>
 
-        <div class="contactCard">
+        <div class="contact">
           <div>
             <b>pronofootplus.contact@gmail.com</b>
-            <p>We typically respond within 24–48h. Include your app version and device if it’s support.</p>
+            <p>We typically respond within 24–48h.</p>
           </div>
-          <div class="contactRight">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <a class="btn primary" href="mailto:pronofootplus.contact@gmail.com?subject=PronoFoot%2B%20Contact">Send Email</a>
-            <a class="btn" href="#screens">View Screens</a>
+            <a class="btn" href="#screens">Screens</a>
           </div>
         </div>
       </div>
@@ -721,21 +562,21 @@
 
     <footer>
       <div class="container">
-        <div class="fgrid">
+        <div class="foot">
           <div>
-            <div style="display:flex; align-items:center; gap:10px; font-weight:950; color:rgba(255,255,255,.90);">
-              <span class="logoDot"></span>
-              <span>PronoFoot+</span>
+            <div class="brand" style="gap:10px;">
+              <span class="dot"></span>
+              <span>PronoFoot<span style="color:var(--accent)">+</span></span>
             </div>
             <div style="margin-top:8px; max-width:72ch;">
-              Developer website for PronoFoot+. This site may be used for platform verification and communication.
+              Official developer website for PronoFoot+. Used for verification and communication.
             </div>
           </div>
 
-          <div class="smallLinks">
-            <a href="#experience">Experience</a>
+          <div class="footLinks">
             <a href="#features">Features</a>
             <a href="#screens">Screens</a>
+            <a href="#contact">Contact</a>
             <a href="mailto:pronofootplus.contact@gmail.com?subject=PronoFoot%2B%20Contact">Email</a>
           </div>
         </div>
@@ -748,20 +589,16 @@
     <div class="lbCard">
       <div class="lbTop">
         <b id="lbTitle">Preview</b>
-        <button class="lbClose" id="lbClose" type="button" aria-label="Close">Close ✕</button>
+        <button class="lbClose" id="lbClose" type="button">Close ✕</button>
       </div>
-      <div class="lbImgWrap">
+      <div class="lbBody">
         <img class="lbImg" id="lbImg" alt="Preview image" />
       </div>
     </div>
   </div>
 
-  <!-- GSAP (Dipla-like scroll animations) -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
   <script>
-    // ===== Lightbox =====
+    // Lightbox minimal (clean UX)
     (function(){
       const lb = document.getElementById('lb');
       const lbImg = document.getElementById('lbImg');
@@ -780,97 +617,14 @@
         document.body.style.overflow = '';
       }
 
-      closeBtn.addEventListener('click', close);
-      lb.addEventListener('click', (e) => { if(e.target === lb) close(); });
-      window.addEventListener('keydown', (e) => { if(e.key === 'Escape') close(); });
-
       document.querySelectorAll('[data-lightbox-src]').forEach(el => {
         el.addEventListener('click', () => open(el.dataset.lightboxSrc, el.dataset.lightboxTitle));
       });
+
+      closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', (e) => { if(e.target === lb) close(); });
+      window.addEventListener('keydown', (e) => { if(e.key === 'Escape') close(); });
     })();
-
-    // ===== Tilt (simple, smooth) =====
-    function tilt(el, strength=14){
-      let raf=null;
-      function move(ev){
-        const r = el.getBoundingClientRect();
-        const x = (ev.clientX - r.left)/r.width;
-        const y = (ev.clientY - r.top)/r.height;
-        const rx = (0.5 - y) * strength;
-        const ry = (x - 0.5) * strength;
-        if(raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(()=> el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`);
-      }
-      function leave(){ el.style.transform = ''; }
-      el.addEventListener('mousemove', move);
-      el.addEventListener('mouseleave', leave);
-    }
-    document.querySelectorAll('.js-tilt').forEach(el => tilt(el, 12));
-
-    // ===== GSAP Scroll Animations (Dipla-like) =====
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Hero entrance
-    gsap.from(".pill", { y: 10, opacity: 0, duration: .7, ease: "power2.out" });
-    gsap.from("h1", { y: 18, opacity: 0, duration: .9, delay: .05, ease: "power2.out" });
-    gsap.from(".sub", { y: 18, opacity: 0, duration: .9, delay: .12, ease: "power2.out" });
-    gsap.from(".ctaRow .btn", { y: 10, opacity: 0, duration: .7, delay: .2, stagger: .07, ease: "power2.out" });
-
-    // Blobs subtle drift
-    gsap.to(".blob.b1", { x: 80, y: 50, duration: 12, yoyo: true, repeat: -1, ease: "sine.inOut" });
-    gsap.to(".blob.b2", { x: -70, y: 60, duration: 14, yoyo: true, repeat: -1, ease: "sine.inOut" });
-    gsap.to(".blob.b3", { x: 60, y: -50, duration: 16, yoyo: true, repeat: -1, ease: "sine.inOut" });
-
-    // Shine animation (CSS-free timeline)
-    gsap.to(".shine", { x: "120%", opacity: 0, duration: 2.4, repeat: -1, repeatDelay: 2.4, ease: "power1.inOut" });
-
-    // Floating cards parallax + oscillation
-    gsap.utils.toArray(".js-float").forEach((card, i) => {
-      gsap.to(card, { y: (i%2? 16 : -16), duration: 3.2 + i*.25, yoyo: true, repeat: -1, ease: "sine.inOut" });
-      gsap.from(card, {
-        opacity: 0, y: 18,
-        scrollTrigger: { trigger: ".hero", start: "top 70%", end: "bottom 60%", scrub: false },
-        duration: .9, delay: .15 + i*.06, ease: "power2.out"
-      });
-    });
-
-    // Phone slight parallax on scroll
-    gsap.to(".phone", {
-      y: -30,
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-    });
-
-    // Section reveal: big cards, mocks, contact
-    const reveal = (selector) => {
-      gsap.utils.toArray(selector).forEach(el => {
-        gsap.from(el, {
-          y: 18,
-          opacity: 0,
-          duration: .9,
-          ease: "power2.out",
-          scrollTrigger: { trigger: el, start: "top 80%" }
-        });
-      });
-    };
-    reveal(".bigCard");
-    reveal(".mock");
-    reveal(".contactCard");
-
-    // Gallery stagger
-    gsap.from(".js-shot", {
-      y: 18,
-      opacity: 0,
-      duration: .9,
-      stagger: .06,
-      ease: "power2.out",
-      scrollTrigger: { trigger: "#screens", start: "top 75%" }
-    });
-
-    // Slight scale on gallery hover (GSAP quickTo feel)
-    document.querySelectorAll(".shot").forEach(s => {
-      s.addEventListener("mouseenter", ()=> gsap.to(s, { scale: 1.02, duration: .25, ease:"power2.out" }));
-      s.addEventListener("mouseleave", ()=> gsap.to(s, { scale: 1.00, duration: .25, ease:"power2.out" }));
-    });
   </script>
 </body>
 </html>
